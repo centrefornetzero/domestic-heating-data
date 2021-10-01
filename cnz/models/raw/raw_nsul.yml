@@ -1,0 +1,55 @@
+version: 2
+
+sources:
+  - name: raw_nsul
+    description: ONS National Statistics UPRN Lookup
+    schema: raw_nsul
+    tables:
+      - name: nsul
+        partition_by:
+          field: dataset_date
+          data_type: date
+          granularity: day
+        columns:
+        - name: dataset_date
+          tests:
+            - not_null
+        - name: uprn
+          description: Unique property reference number
+          tests:
+            - not_null
+        - name: gridgb1e
+          description: Easting - National Grid Reference
+        - name: gridgb1n
+          description: Northing - National Grid Reference
+        - name: pcds
+          description: Post code (variable length)
+        - name: oa11cd
+          description: 2011 Census Output Area code
+        - name: cty21cd
+          description: County code
+        - name: ced17cd
+          description: County electoral division code
+        - name: lad21cd
+          description: Local authority district code
+        - name: wd19cd
+        - name: hlth19cd
+        - name: ctry11cd
+        - name: rgn11cd
+        - name: pcon11cd
+        - name: eer11cd
+        - name: ttwa15cd
+        - name: itl21cd
+        - name: npark16cd
+        - name: lsoa11cd
+        - name: msoa11cd
+        - name: wz11cd
+        - name: ccg17cd
+        - name: bua11cd
+        - name: buasd11cd
+        - name: ruc11ind
+        - name: oac11ind
+        - name: lep17cd1
+        - name: lep17cd2
+        - name: pfa15cd
+        - name: imd19ind
