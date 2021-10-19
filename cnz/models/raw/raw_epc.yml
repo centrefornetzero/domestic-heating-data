@@ -1,0 +1,190 @@
+version: 2
+
+sources:
+  - name: raw_epc
+    description: Energy performance certificates
+    schema: raw_epc
+    tables:
+      - name: england_wales_certificates
+        columns:
+          # Descriptions from https://epc.opendatacommunities.org/docs/guidance#glossary
+          - name: LMK_KEY
+            description: Individual lodgement identifier. Guaranteed to be unique and can be used to identify a certificate in the downloads and the API.
+          - name: ADDRESS1
+            description: First line of the address
+          - name: ADDRESS2
+            description: Second line of the address
+          - name: ADDRESS3
+            description: Third line of the address
+          - name: POSTCODE
+            description: The postcode of the property
+          - name: BUILDING_REFERENCE_NUMBER
+            description: Unique identifier for the property.
+          - name: CURRENT_ENERGY_RATING
+            description: Current energy rating converted into a linear 'A to G' rating (where A is the most energy efficient and G is the least energy efficient)
+          - name: POTENTIAL_ENERGY_RATING
+            description: Estimated potential energy rating converted into a linear 'A to G' rating (where A is the most energy efficient and G is the least energy efficient)
+          - name: CURRENT_ENERGY_EFFICIENCY
+            description: Based on cost of energy, i.e. energy required for space heating, water heating and lighting [in kWh/year] multiplied by fuel costs. (£/m²/year where cost is derived from kWh).
+          - name: POTENTIAL_ENERGY_EFFICIENCY
+            description: The potential energy efficiency rating of the property.
+          - name: PROPERTY_TYPE
+            description: Describes the type of property such as House, Flat, Maisonette etc. This is the type differentiator for dwellings.
+          - name: BUILT_FORM
+            description: The building type of the Property e.g. Detached, Semi-Detached, Terrace etc. Together with the Property Type, the Build Form produces a structured description of the property
+          - name: INSPECTION_DATE
+            description: The date that the inspection was actually carried out by the energy assessor
+          - name: LOCAL_AUTHORITY
+            description: Office for National Statistics (ONS) code. Local authority area in which the building is located.
+          - name: CONSTITUENCY
+            description: Office for National Statistics (ONS) code. Parliamentary constituency in which the building is located.
+          - name: COUNTY
+            description: County in which the building is located (where applicable)
+          - name: LODGEMENT_DATE
+            description: Date lodged on the Energy Performance of Buildings Register
+          - name: TRANSACTION_TYPE
+            description: "Type of transaction that triggered EPC. For example, one of: marketed sale; non-marketed sale; new-dwelling; rental; not sale or rental; assessment for Green Deal; following Green Deal; FIT application; none of the above; RHI application; ECO assessment. Where the reason for the assessment is unknown by the energy assessor the transaction type will be recorded as 'none of the above'. Transaction types may be changed over time."
+          - name: ENVIRONMENT_IMPACT_CURRENT
+            description: The Environmental Impact Rating. A measure of the property's current impact on the environment in terms of carbon dioxide (CO2) emissions. The higher the rating the lower the CO2 emissions. (CO2 emissions in tonnes / year)
+          - name: ENVIRONMENT_IMPACT_POTENTIAL
+            description: The potential Environmental Impact Rating. A measure of the property's potential impact on the environment in terms of carbon dioxide (CO2) emissions after improvements have been carried out. The higher the rating the lower the CO2 emissions. (CO2 emissions in tonnes / year)
+          - name: ENERGY_CONSUMPTION_CURRENT
+            description: Current estimated total energy consumption for the property in a 12 month period (kWh/m2). Displayed on EPC as the current primary energy use per square metre of floor area.
+          - name: ENERGY_CONSUMPTION_POTENTIAL
+            description: Estimated potential total energy consumption for the Property in a 12 month period. Value is Kilowatt Hours per Square Metre (kWh/m²)
+          - name: CO2_EMISSIONS_CURRENT
+            description: CO2 emissions per year in tonnes/year.
+          - name: CO2_EMISS_CURR_PER_FLOOR_AREA
+            description: CO2 emissions per square metre floor area per year in kg/m²
+          - name: CO2_EMISSIONS_POTENTIAL decimal
+            description: Estimated value in Tonnes per Year of the total CO2 emissions produced by the Property in 12 month period.
+          - name: LIGHTING_COST_CURRENT
+            description: Current estimated annual energy costs for lighting the property (GBP).
+          - name: LIGHTING_COST_POTENTIAL
+            description: Potential estimated annual energy costs for lighting the property after improvements have been made (GBP).
+          - name: HEATING_COST_CURRENT
+            description: Current estimated annual energy costs for heating the property (GBP).
+          - name: HEATING_COST_POTENTIAL
+            description: Potential annual energy costs for lighting the property after improvements have been made (GBP).
+          - name: HOT_WATER_COST_CURRENT
+            description: Current estimated annual energy costs for hot water (GBP).
+          - name: HOT_WATER_COST_POTENTIAL
+            description: Potential estimated annual energy costs for hot water after improvements have been made (GBP).
+          - name: TOTAL_FLOOR_AREA
+            description: The total useful floor area is the total of all enclosed spaces measured to the internal face of the external walls, i.e. the gross floor area as measured in accordance with the guidance issued from time to time by the Royal Institute of Chartered Surveyors or by a body replacing that institution. (m²)
+          - name: ENERGY_TARIFF
+            description: Type of electricity tariff for the property, e.g. single.
+          - name: MAINS_GAS_FLAG
+            description: Whether mains gas is available. Yes means that there is a gas meter or a gas-burning appliance in the dwelling. A closed-off gas pipe does not count.
+          - name: FLOOR_LEVEL
+            description: Flats and maisonettes only. Floor level relative to the lowest level of the property (0 for ground floor). If there is a basement, the basement is level 0 and the other floors are from 1 upwards
+          - name: FLAT_TOP_STOREY
+            description: Whether the flat is on the top storey
+          - name: FLAT_STOREY_COUNT
+            description: The number of storeys in the apartment block.
+          - name: MAIN_HEATING_CONTROLS
+            description: Type of main heating controls. Includes both main heating systems if there are two.
+          - name: MULTI_GLAZE_PROPORTION
+            description: The estimated banded range (e.g. 0% - 10%) of the total glazed area of the Property that is multiple glazed.
+          - name: GLAZED_TYPE
+            description: The type of glazing. From British Fenestration Rating Council or manufacturer declaration, one of; single; double; triple.
+          - name: GLAZED_AREA
+            description: Ranged estimate of the total glazed area of the Habitable Area
+          - name: EXTENSION_COUNT
+            description: The number of extensions added to the property. Between 0 and 4.
+          - name: NUMBER_HABITABLE_ROOMS
+            description: Habitable rooms include any living room, sitting room, dining room, bedroom, study and similar; and also a non-separated conservatory. A kitchen/diner having a discrete seating area (with space for a table and four chairs) also counts as a habitable room. A non-separated conservatory adds to the habitable room count if it has an internal quality door between it and the dwelling. Excluded from the room count are any room used solely as a kitchen, utility room, bathroom, cloakroom, en-suite accommodation and similar and any hallway, stairs or landing; and also any room not having a window.
+          - name: NUMBER_HEATED_ROOMS
+            description: The number of heated rooms in the property if more than half of the habitable rooms are not heated.
+          - name: LOW_ENERGY_LIGHTING
+            description: The percentage of low energy lighting present in the property as a percentage of the total fixed lights in the property. 0% indicates that no low-energy lighting is present.
+          - name: NUMBER_OPEN_FIREPLACES
+            description: The number of Open Fireplaces in the Property. An Open Fireplace is a fireplace that still allows air to pass between the inside of the Property and the outside.
+          - name: HOTWATER_DESCRIPTION
+            description: Overall description of the property feature
+          - name: HOT_WATER_ENERGY_EFF
+            description: "Energy efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: HOT_WATER_ENV_EFF
+            description: "Environmental efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: FLOOR_DESCRIPTION
+            description: Overall description of the property feature
+          - name: FLOOR_ENERGY_EFF
+            description: "Energy efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: FLOOR_ENV_EFF
+            description: "Environmental efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: WINDOWS_DESCRIPTION
+            description: Overall description of the property feature
+          - name: WINDOWS_ENERGY_EFF
+            description: "Energy efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: WINDOWS_ENV_EFF
+            description: "WINDOWS. Environmental efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: WALLS_DESCRIPTION
+            description: Overall description of the property feature
+          - name: WALLS_ENERGY_EFF
+            description: "Energy efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: WALLS_ENV_EFF
+            description: "Environmental efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: SECONDHEAT_DESCRIPTION
+            description: Overall description of the property feature
+          - name: SHEATING_ENERGY_EFF
+            description: "Energy efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: SHEATING_ENV_EFF
+            description: "Environmental efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: ROOF_DESCRIPTION
+            description: Overall description of the property feature
+          - name: ROOF_ENERGY_EFF
+            description: "Energy efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: ROOF_ENV_EFF
+            description: "Environmental efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: MAINHEAT_DESCRIPTION
+            description: Overall description of the property feature
+          - name: MAINHEAT_ENERGY_EFF
+            description: "Energy efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: MAINHEAT_ENV_EFF
+            description: "Environmental efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: MAINHEATCONT_DESCRIPTION
+            description: Overall description of the property feature
+          - name: MAINHEATC_ENERGY_EFF
+            description: "Energy efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: MAINHEATC_ENV_EFF
+            description: "Environmental efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: LIGHTING_DESCRIPTION
+            description: Overall description of property feature. Total number of fixed lighting outlets and total number of low-energy fixed lighting outlets
+          - name: LIGHTING_ENERGY_EFF
+            description: "Energy efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: LIGHTING_ENV_EFF
+            description: "Environmental efficiency rating. One of: very good; good; average; poor; very poor. On actual energy certificate shown as one to five star rating."
+          - name: MAIN_FUEL
+            description: The type of fuel used to power the central heating e.g. Gas, Electricity
+          - name: WIND_TURBINE_COUNT
+            description: Number of wind turbines; 0 if none.
+          - name: HEAT_LOSS_CORRIDOR
+            description: "Flats and maisonettes only. Indicates that the flat contains a corridor through which heat is lost. Heat loss corridor, one of: no corridor; heated corridor; unheated corridor"
+          - name: UNHEATED_CORRIDOR_LENGTH
+            description: The total length of unheated corridor in the flat. Only populated if flat or maisonette contains unheated corridor. If unheated corridor, length of sheltered wall (m²).
+          - name: FLOOR_HEIGHT
+            description: Average height of the storey in metres.
+          - name: PHOTO_SUPPLY
+            description: Percentage of photovoltaic area as a percentage of total roof area. 0% indicates that a Photovoltaic Supply is not present in the property.
+          - name: SOLAR_WATER_HEATING_FLAG
+            description: Indicates whether the heating in the Property is solar powered.
+          - name: MECHANICAL_VENTILATION
+            description: Identifies the type of mechanical ventilation the property has. This is required for the RdSAP calculation.
+          - name: ADDRESS
+            description: Field containing the concatenation of address1, address2 and address3. Note that post code is recorded separately.
+          - name: LOCAL_AUTHORITY_LABEL
+            description: "The name of the local authority area in which the building is located. This field is for additional information only and should not be relied upon: please refer to the Local Authority ONS Code."
+          - name: CONSTITUENCY_LABEL
+            description: "The name of the parliamentary constituency in which the building is located. This field is for additional information only and should not be relied upon: please refer to the Constituency ONS Code."
+          - name: POSTTOWN
+            description: The post town of the property
+          - name: CONSTRUCTION_AGE_BAND
+            description: "Age band when building part constructed. England & Wales only. One of: before 1900; 1900-1929; 1930-1949; 1950-1966; 1967-1975; 1976-1982; 1983-1990; 1991-1995; 1996-2002; 2003-2006; 2007-2011; 2012 onwards."
+          - name: LODGEMENT_DATETIME
+            description: Date and time lodged on the Energy Performance of Buildings Register.
+          - name: TENURE
+            description: "Describes the tenure type of the property. One of: Owner-occupied; Rented (social); Rented (private)."
+          - name: FIXED_LIGHTING_OUTLETS_COUNT
+            description: The number of fixed lighting outlets.
+          - name: LOW_ENERGY_FIXED_LIGHT_COUNT
+            description: The number of low-energy fixed lighting outlets.

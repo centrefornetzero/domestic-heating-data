@@ -1,0 +1,240 @@
+version: 2
+
+models:
+  - name: england_wales_certificates
+    columns:
+      - name: lodgement_identifier
+        tests:
+          - unique
+          - not_null
+      - name: post_town
+      - name: postcode
+        tests:
+          - not_null
+      - name: building_reference_number
+        tests:
+          - not_null
+      - name: current_energy_rating
+        tests:
+          - accepted_values:
+              values: ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+      - name: potential_energy_rating
+        tests:
+          - accepted_values:
+              values: ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+      - name: current_energy_efficiency
+        tests:
+          - not_null
+      - name: potential_energy_efficiency
+        tests:
+          - not_null
+      - name: property_type
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['park home', 'flat', 'maisonette', 'bungalow', 'house']
+      - name: built_form
+        tests:
+          - accepted_values:
+              values: ['detached', 'semi-detached', 'mid-terrace', 'end-terrace', 'enclosed mid-terrace', 'enclosed end-terrace']
+      - name: inspection_date
+      - name: ons_local_authority_code
+      - name: ons_local_authority_code
+      - name: ons_constituency_code
+      - name: county
+      - name: register_lodgement_date
+        tests:
+          - not_null
+      - name: transaction_type
+      - name: environment_impact_current
+        tests:
+          - not_null
+      - name: environment_impact_potential
+        tests:
+          - not_null
+      - name: energy_consumption_current
+        tests:
+          - not_null
+      - name: energy_consumption_potential
+        tests:
+          - not_null
+      - name: co2_emissions_current
+        tests:
+          - not_null
+      - name: co2_emissions_current_per_floor_area
+        tests:
+          - not_null
+      - name: co2_emissions_potential
+        tests:
+          - not_null
+      - name: lighting_cost_current
+        tests:
+          - not_null
+      - name: lighting_cost_potential
+        tests:
+          - not_null
+      - name: heating_cost_current
+        tests:
+          - not_null
+      - name: heating_cost_potential
+        tests:
+          - not_null
+      - name: hot_water_cost_current
+        tests:
+          - not_null
+      - name: hot_water_cost_potential
+        tests:
+          - not_null
+      - name: total_floor_area
+      - name: energy_tariff
+      - name: mains_gas_available
+      - name: floor_level
+      - name: flat_top_storey
+      - name: flat_storey_count
+      - name: main_heating_controls
+      - name: multi_glaze_proportion
+      - name: glazed_type
+        tests:
+          - accepted_values:
+              values: ['single', 'secondary', 'double', 'triple']
+      - name: glazed_post_2002
+      - name: glazed_area
+        tests:
+          - accepted_values:
+              values: ['much less than typical', 'less than typical', 'normal', 'more than typical', 'much more than typical']
+      - name: extension_count
+        tests:
+          - accepted_values:
+              values: [0, 1, 2, 3, 4]
+              quote: false
+      - name: number_habitable_rooms
+      - name: number_heated_rooms
+      - name: percentage_low_energy_lighting
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100        
+      - name: number_open_fireplaces
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+      - name: hot_water_description
+      - name: hot_water_energy_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: hot_water_environmental_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: floor_description
+      - name: floor_energy_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: floor_environmental_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: windows_description
+      - name: windows_energy_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: windows_environmental_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: walls_description
+      - name: walls_energy_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: walls_environmental_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: secondary_heat_description
+      - name: secondary_heating_energy_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: secondary_heating_environmental_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: roof_description
+      - name: roof_energy_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: roof_environmental_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: main_heat_description
+      - name: main_heat_energy_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: main_heat_environmental_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: main_heat_control_description
+      - name: main_heat_control_energy_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: main_heat_control_environmental_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: lighting_description
+      - name: lighting_energy_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: lighting_environmental_efficiency
+        tests:
+          - accepted_values:
+              values: ['very poor', 'poor', 'average', 'good', 'very good']
+      - name: main_fuel
+      - name: wind_turbine_count
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+      - name: heat_loss_corridor
+        tests:
+          - accepted_values:
+              values: ['no corridor', 'heated corridor', 'unheated corridor']
+      - name: unheated_corridor_length
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+      - name: floor_height
+      - name: percentage_roof_photovoltaics
+        tests:
+        - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+      - name: solar_water_heating_flag
+      - name: mechanical_ventilation
+        tests:
+          - accepted_values:
+              values: ['mechanical, extract only', 'mechanical, supply and extract', 'natural']
+      - name: construction_age_band
+      - name: lodgement_datetime
+        tests:
+          - not_null
+      - name: tenure
+        tests:
+          - accepted_values:
+              values: ['owner-occupied', 'rented (private)', 'rented (social)']
+      - name: fixed_lighting_outlets_count
+        tests:
+        - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+      - name: low_energy_fixed_light_count
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
