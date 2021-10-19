@@ -1,4 +1,4 @@
-{{ config(schema="nsul") }}
+{{ config(schema="nsul", materialized="table") }}
 
 select
     * except(rank_)
