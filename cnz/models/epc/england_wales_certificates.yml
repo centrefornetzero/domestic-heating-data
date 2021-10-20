@@ -217,6 +217,7 @@ models:
         tests:
         - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
+              max_value: 100
       - name: solar_water_heating_flag
       - name: mechanical_ventilation
         tests:
