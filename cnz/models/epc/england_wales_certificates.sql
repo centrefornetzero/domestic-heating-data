@@ -121,7 +121,7 @@ select
     nullif(lower(LIGHTING_ENV_EFF), 'n/a') as lighting_environmental_efficiency,
     MAIN_FUEL as main_fuel,
     case
-        when WIND_TURBINE_COUNT < 0 then 0
+        when WIND_TURBINE_COUNT < 0 then null
         else cast(WIND_TURBINE_COUNT as int)
     end as wind_turbine_count,
     case HEAT_LOSS_CORRIDOR
