@@ -8,12 +8,15 @@ select
     upper(trim(POSTTOWN)) as post_town,
     POSTCODE as postcode,
     BUILDING_REFERENCE_NUMBER as building_reference_number,
-    replace(CURRENT_ENERGY_RATING, 'INVALID!', null) as current_energy_rating,
-    replace(POTENTIAL_ENERGY_RATING, 'INVALID!', null) as potential_energy_rating,
+    nullif(CURRENT_ENERGY_RATING, 'INVALID!') as current_energy_rating,
+    nullif(POTENTIAL_ENERGY_RATING, 'INVALID!') as potential_energy_rating,
     CURRENT_ENERGY_EFFICIENCY as current_energy_efficiency,
     POTENTIAL_ENERGY_EFFICIENCY as potential_energy_efficiency,
     lower(PROPERTY_TYPE) as property_type,
-    lower(replace(BUILT_FORM, 'NO DATA!', null)) as built_form,
+    case
+        when BUILT_FORM in ('NO DATA!', '') then null
+        else lower(BUILT_FORM)
+    end as built_form,
     INSPECTION_DATE as inspection_date,
     nullif(LOCAL_AUTHORITY, '') as ons_local_authority_code,
     nullif(CONSTITUENCY, '') as ons_constituency_code,
@@ -103,7 +106,7 @@ select
     ROOF_DESCRIPTION as roof_description,
     nullif(lower(ROOF_ENERGY_EFF), 'n/a') as roof_energy_efficiency,
     nullif(lower(ROOF_ENV_EFF), 'n/a') as roof_environmental_efficiency,
-    MAINHEAT_DESCRIPTION as main_heat_description,
+    lower(MAINHEAT_DESCRIPTION) as main_heat_description,
     nullif(lower(MAINHEAT_ENERGY_EFF), 'n/a') as main_heat_energy_efficiency,
     nullif(lower(MAINHEAT_ENV_EFF), 'n/a') as main_heat_environmental_efficiency,
     MAINHEATCONT_DESCRIPTION as main_heat_control_description,
