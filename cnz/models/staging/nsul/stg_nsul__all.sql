@@ -1,8 +1,4 @@
-{{
-    config(
-        schema="nsul"
-    )
-}}
+{{ config(schema="nsul") }}
 
 select
     dataset_date,

@@ -1,4 +1,4 @@
-{{ config(schema="epc", materialized="table") }}
+{{ config(schema="epc") }}
 
 select
     LMK_KEY as lodgement_identifier,
