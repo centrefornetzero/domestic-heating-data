@@ -3,6 +3,7 @@ version: 2
 sources:
   - name: raw_nsul
     description: ONS National Statistics UPRN Lookup
+    project: "{{ env_var('PRODUCTION_PROJECT_ID') }}"
     schema: raw_nsul
     tables:
       - name: nsul
