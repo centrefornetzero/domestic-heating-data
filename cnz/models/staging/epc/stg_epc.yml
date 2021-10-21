@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: england_wales_certificates
+  - name: stg_epc__england_wales_certificates
     columns:
       - name: lodgement_identifier
         tests:

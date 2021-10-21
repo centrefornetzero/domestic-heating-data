@@ -8,7 +8,7 @@ from (
         rank() over (order by dataset_date desc) as rank_,
         *
 
-    from {{ ref("nsul_all" ) }}
+    from {{ ref("stg_nsul__all" ) }}
 )
 
 where rank_ = 1
