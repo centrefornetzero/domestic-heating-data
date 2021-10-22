@@ -5,7 +5,7 @@ cnz:
       type: bigquery
       method: oauth
       project: "{{ env_var('DEV_PROJECT_ID') }}"
-      schema: "{{ env_var('DBT_SCHEMA') }}"
+      schema: "ci_{{ env_var('GITHUB_SHA')[:7] }}"
       threads: 10
       timeout_seconds: 300
       location: EU
