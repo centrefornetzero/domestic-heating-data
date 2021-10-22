@@ -1,0 +1,22 @@
+name: dbt pull request
+on: pull_request
+env:
+  PROD_PROJECT_ID: ${{ secrets.GCP_DATA_WAREHOUSE_PROD_PROJECT_ID }}
+  DEV_PROJECT_ID: ${{ secrets.GCP_DATA_WAREHOUSE_DEV_PROJECT_ID }}
+  DBT_PROFILES_DIR: ${{ github.workspace }}
+jobs:
+  dbt_pull_request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: google-github-actions/setup-gcloud@v0.2.1
+        with:
+          service_account_key: ${{ secrets.GCP_DATA_WAREHOUSE_SA_KEY }}
+          export_default_credentials: true
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - run: pip install pipenv
+      - run: pipenv sync --dev
+      - run: pipenv run ../scripts/dbt_pull_request.sh
+        working-directory: cnz
