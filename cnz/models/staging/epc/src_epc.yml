@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: epc
     description: Energy performance certificates
-    project: "{{ env_var('PRODUCTION_PROJECT_ID') }}"
+    project: "{{ env_var('PROD_PROJECT_ID') }}"
     schema: src_epc
     tables:
       - name: england_wales_certificates
