@@ -8,5 +8,5 @@ if [[ -z $GITHUB_SHA ]] ; then
 fi
 
 bq ls --project_id "$DEV_PROJECT_ID" --format=json \
-    | jq '.[] | .id | select(. | contains("ci_${GITHUB_SHA::7}"))' \
+    | jq --arg SCHEMA "ci_${GITHUB_SHA::7}" '.[] | .id | select(. | contains($SCHEMA))' \
     | xargs -t -n1 bq rm -r -f --dataset
