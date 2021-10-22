@@ -1,4 +1,4 @@
-{{ config(schema="epc", materialized="table") }}
+{{ config(schema="epc") }}
 
 select
     LMK_KEY as lodgement_identifier,
@@ -131,7 +131,7 @@ select
     end as heat_loss_corridor,
     UNHEATED_CORRIDOR_LENGTH as unheated_corridor_length,
     FLOOR_HEIGHT as floor_height,
-    case 
+    case
         when PHOTO_SUPPLY > 0 then PHOTO_SUPPLY
         else null
     end as percentage_roof_photovoltaics,
@@ -159,4 +159,4 @@ select
         else cast(LOW_ENERGY_FIXED_LIGHT_COUNT as int)
     end as low_energy_fixed_light_count
 
-from {{ source("raw_epc", "england_wales_certificates") }} 
+from {{ source("epc", "england_wales_certificates") }}

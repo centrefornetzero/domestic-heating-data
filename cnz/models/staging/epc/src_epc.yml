@@ -1,9 +1,10 @@
 version: 2
 
 sources:
-  - name: raw_epc
+  - name: epc
     description: Energy performance certificates
-    schema: raw_epc
+    project: "{{ env_var('PRODUCTION_PROJECT_ID') }}"
+    schema: src_epc
     tables:
       - name: england_wales_certificates
         columns:
