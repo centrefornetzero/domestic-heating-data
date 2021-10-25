@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 dbt-bigquery = "==0.21.0"
+sqlfluff = "==0.7.1"
+sqlfluff-templater-dbt = "==0.7.1"
 
 [dev-packages]
 

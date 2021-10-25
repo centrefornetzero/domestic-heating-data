@@ -31,3 +31,4 @@ jobs:
           key: dbt-packages-${{ hashFiles('cnz/packages.yml') }}
       - run: pipenv run ../scripts/dbt_pull_request.sh
         working-directory: cnz
+      - run: pipenv run sqlfluff lint
