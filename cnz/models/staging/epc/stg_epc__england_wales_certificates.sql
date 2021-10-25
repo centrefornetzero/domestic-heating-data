@@ -47,13 +47,11 @@ select
     case mains_gas_flag
         when 'Y' then true
         when 'N' then false
-        else null
     end as mains_gas_available,
     nullif(floor_level, '') as floor_level,  -- requires *major* cleaning
     case flat_top_storey
         when 'Y' then true
         when 'N' then false
-        else null
     end as flat_top_storey,
     flat_storey_count,
     main_heating_controls,  -- values make no sense
@@ -62,12 +60,10 @@ select
         when contains_substr(glazed_type, 'single') then 'single'
         when contains_substr(glazed_type, 'double') then 'double'
         when contains_substr(glazed_type, 'triple') then 'triple'
-        else null
     end as glazed_type,
     case
         when contains_substr(glazed_type, 'during or after 2002') then true
         when contains_substr(glazed_type, 'before 2002') then false
-        else null
     end as glazed_post_2002,
     case
         when glazed_area in ('NO DATA!', 'Not Defined', '') then null
@@ -133,12 +129,10 @@ select
     floor_height,
     case
         when photo_supply > 0 then photo_supply
-        else null
     end as percentage_roof_photovoltaics,
     case solar_water_heating_flag
         when 'Y' then true
         when 'N' then false
-        else null
     end as solar_water_heating,
     case mechanical_ventilation
         when 'NO DATA!' then null
