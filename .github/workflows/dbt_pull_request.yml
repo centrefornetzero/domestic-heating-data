@@ -24,5 +24,10 @@ jobs:
           path: ~/.local/share/virtualenvs
           key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
       - run: pipenv sync --dev
+      - name: Cache dbt modules
+        uses: actions/cache@v2
+        with:
+          path: cnz/dbt_modules
+          key: dbt-packages-${{ hashFiles('cnz/packages.yml') }}
       - run: pipenv run ../scripts/dbt_pull_request.sh
         working-directory: cnz
