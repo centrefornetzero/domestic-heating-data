@@ -14,9 +14,15 @@ jobs:
           service_account_key: ${{ secrets.GCP_DATA_WAREHOUSE_SA_KEY }}
           export_default_credentials: true
       - uses: actions/setup-python@v2
+        id: setup-python
         with:
           python-version: "3.9"
       - run: pip install pipenv
+      - name: Cache virtualenvs
+        uses: actions/cache@v2
+        with:
+          path: ~/.local/share/virtualenvs
+          key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
       - run: pipenv sync --dev
       - run: pipenv run ../scripts/dbt_pull_request.sh
         working-directory: cnz
