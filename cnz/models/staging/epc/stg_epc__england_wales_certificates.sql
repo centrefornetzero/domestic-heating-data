@@ -1,42 +1,42 @@
 {{ config(schema="epc") }}
 
 select
-    LMK_KEY as lodgement_identifier,
+    lmk_key as lodgement_identifier,
     nullif(ADDRESS1, "") as address_line_1,
     nullif(ADDRESS2, "") as address_line_2,
     nullif(ADDRESS3, "") as address_line_3,
     upper(trim(POSTTOWN)) as post_town,
-    POSTCODE as postcode,
-    BUILDING_REFERENCE_NUMBER as building_reference_number,
+    postcode,
+    building_reference_number,
     nullif(CURRENT_ENERGY_RATING, 'INVALID!') as current_energy_rating,
     nullif(POTENTIAL_ENERGY_RATING, 'INVALID!') as potential_energy_rating,
-    CURRENT_ENERGY_EFFICIENCY as current_energy_efficiency,
-    POTENTIAL_ENERGY_EFFICIENCY as potential_energy_efficiency,
+    current_energy_efficiency,
+    potential_energy_efficiency,
     lower(PROPERTY_TYPE) as property_type,
     case
         when BUILT_FORM in ('NO DATA!', '') then null
         else lower(BUILT_FORM)
     end as built_form,
-    INSPECTION_DATE as inspection_date,
+    inspection_date,
     nullif(LOCAL_AUTHORITY, '') as ons_local_authority_code,
     nullif(CONSTITUENCY, '') as ons_constituency_code,
     nullif(COUNTY, '') as county,
     LODGEMENT_DATE as register_lodgement_date,
-    TRANSACTION_TYPE as transaction_type,  -- needs clean up and tests,
-    ENVIRONMENT_IMPACT_CURRENT as environment_impact_current,
-    ENVIRONMENT_IMPACT_POTENTIAL as environment_impact_potential,
-    ENERGY_CONSUMPTION_CURRENT as energy_consumption_current,
-    ENERGY_CONSUMPTION_POTENTIAL as energy_consumption_potential,
-    CO2_EMISSIONS_CURRENT as co2_emissions_current,
-    CO2_EMISS_CURR_PER_FLOOR_AREA as co2_emissions_current_per_floor_area,
-    CO2_EMISSIONS_POTENTIAL as co2_emissions_potential,
-    LIGHTING_COST_CURRENT as lighting_cost_current,
-    LIGHTING_COST_POTENTIAL as lighting_cost_potential,
-    HEATING_COST_CURRENT as heating_cost_current,
-    HEATING_COST_POTENTIAL as heating_cost_potential,
-    HOT_WATER_COST_CURRENT as hot_water_cost_current,
-    HOT_WATER_COST_POTENTIAL as hot_water_cost_potential,
-    TOTAL_FLOOR_AREA as total_floor_area,
+    transaction_type,  -- needs clean up and tests,
+    environment_impact_current,
+    environment_impact_potential,
+    energy_consumption_current,
+    energy_consumption_potential,
+    co2_emissions_current,
+    co2_emiss_curr_per_floor_area as co2_emissions_current_per_floor_area,
+    co2_emissions_potential,
+    lighting_cost_current,
+    lighting_cost_potential,
+    heating_cost_current,
+    heating_cost_potential,
+    hot_water_cost_current,
+    hot_water_cost_potential,
+    total_floor_area,
     case ENERGY_TARIFF
         when '' then null
         when 'NO DATA!' then null
@@ -55,8 +55,8 @@ select
         when 'N' then false
         else null
     end as flat_top_storey,
-    FLAT_STOREY_COUNT as flat_storey_count,
-    MAIN_HEATING_CONTROLS as main_heating_controls,  -- values make no sense
+    flat_storey_count,
+    main_heating_controls,  -- values make no sense
     cast(MULTI_GLAZE_PROPORTION as int) as multi_glaze_proportion, -- all values are 0.0, 1.0, ...  98.0.
     case
         when contains_substr(GLAZED_TYPE, 'single') then 'single'
@@ -84,26 +84,26 @@ select
         when NUMBER_OPEN_FIREPLACES < 0 then null
         else NUMBER_OPEN_FIREPLACES
     end as number_open_fireplaces,
-    HOTWATER_DESCRIPTION as hot_water_description,
+    hot_water_description,
     nullif(lower(HOT_WATER_ENERGY_EFF), 'n/a') as hot_water_energy_efficiency,
     nullif(lower(HOT_WATER_ENV_EFF), 'n/a') as hot_water_environmental_efficiency,
-    FLOOR_DESCRIPTION as floor_description,
+    floor_description,
     case FLOOR_ENERGY_EFF
         when 'N/A' then null
         when 'NO DATA!' then null
         else lower(FLOOR_ENERGY_EFF)
     end as floor_energy_efficiency,
     nullif(lower(FLOOR_ENV_EFF), 'n/a') as floor_environmental_efficiency,
-    WINDOWS_DESCRIPTION as windows_description,
+    windows_description,
     nullif(lower(WINDOWS_ENERGY_EFF), 'n/a') as windows_energy_efficiency,
     nullif(lower(WINDOWS_ENV_EFF), 'n/a') as windows_environmental_efficiency,
-    WALLS_DESCRIPTION as walls_description,
+    walls_description,
     nullif(lower(WALLS_ENERGY_EFF), 'n/a') as walls_energy_efficiency,
     nullif(lower(WALLS_ENV_EFF), 'n/a') as walls_environmental_efficiency,
     SECONDHEAT_DESCRIPTION as secondary_heat_description,
     nullif(lower(SHEATING_ENERGY_EFF), 'n/a') as secondary_heating_energy_efficiency,
     nullif(lower(SHEATING_ENV_EFF), 'n/a') as secondary_heating_environmental_efficiency,
-    ROOF_DESCRIPTION as roof_description,
+    roof_description,
     nullif(lower(ROOF_ENERGY_EFF), 'n/a') as roof_energy_efficiency,
     nullif(lower(ROOF_ENV_EFF), 'n/a') as roof_environmental_efficiency,
     lower(MAINHEAT_DESCRIPTION) as main_heat_description,
@@ -112,14 +112,14 @@ select
     MAINHEATCONT_DESCRIPTION as main_heat_control_description,
     nullif(lower(MAINHEATC_ENERGY_EFF), 'n/a') as main_heat_control_energy_efficiency,
     nullif(lower(MAINHEATC_ENV_EFF), 'n/a') as main_heat_control_environmental_efficiency,
-    LIGHTING_DESCRIPTION as lighting_description,
+    lighting_description,
     case LIGHTING_ENERGY_EFF
         when 'N/A' then null
         when '' then null
         else lower(LIGHTING_ENERGY_EFF)
     end as lighting_energy_efficiency,
     nullif(lower(LIGHTING_ENV_EFF), 'n/a') as lighting_environmental_efficiency,
-    MAIN_FUEL as main_fuel,
+    main_fuel,
     case
         when WIND_TURBINE_COUNT < 0 then null
         else cast(WIND_TURBINE_COUNT as int)
@@ -129,8 +129,8 @@ select
         when 'NO DATA!' then null
         else HEAT_LOSS_CORRIDOR
     end as heat_loss_corridor,
-    UNHEATED_CORRIDOR_LENGTH as unheated_corridor_length,
-    FLOOR_HEIGHT as floor_height,
+    unheated_corridor_length,
+    floor_height,
     case
         when PHOTO_SUPPLY > 0 then PHOTO_SUPPLY
         else null
@@ -145,8 +145,8 @@ select
         when '' then null
         else MECHANICAL_VENTILATION
     end as mechanical_ventilation,
-    CONSTRUCTION_AGE_BAND as construction_age_band,  -- needs cleaning
-    LODGEMENT_DATETIME as lodgement_datetime,
+    construction_age_band,  -- needs cleaning
+    lodgement_datetime,
     case
         when tenure in ('NO DATA!', 'unknown', '') then null
         when starts_with(tenure, 'Not defined') then null
