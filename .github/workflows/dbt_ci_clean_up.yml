@@ -1,11 +1,11 @@
-name: dbt pull request clean-up
+name: dbt CI clean-up
 on:
-  pull_request:
-    types: [closed]
+  schedule:
+    - cron: '22 22 * * *'
 env:
   DEV_PROJECT_ID: ${{ secrets.GCP_DATA_WAREHOUSE_DEV_PROJECT_ID }}
 jobs:
-  dbt_pull_request:
+  dbt_ci_clean_up:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -13,4 +13,4 @@ jobs:
         with:
           service_account_key: ${{ secrets.GCP_DATA_WAREHOUSE_SA_KEY }}
           export_default_credentials: true
-      - run: ./scripts/dbt_pull_request_closed.sh
+      - run: ./scripts/dbt_ci_clean_up.sh
