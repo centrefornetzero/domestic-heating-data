@@ -55,7 +55,7 @@ select
     end as flat_top_storey,
     flat_storey_count,
     main_heating_controls,  -- values make no sense
-    cast(multi_glaze_proportion as int) as multi_glaze_proportion, -- all values are 0.0, 1.0, ...  98.0.
+    cast(multi_glaze_proportion as int) as multi_glaze_proportion,
     case
         when contains_substr(glazed_type, 'single') then 'single'
         when contains_substr(glazed_type, 'double') then 'double'
