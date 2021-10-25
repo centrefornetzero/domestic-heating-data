@@ -80,7 +80,7 @@ select
         when number_open_fireplaces < 0 then null
         else number_open_fireplaces
     end as number_open_fireplaces,
-    hot_water_description,
+    hotwater_description as hot_water_description,
     nullif(lower(hot_water_energy_eff), 'n/a') as hot_water_energy_efficiency,
     nullif(lower(hot_water_env_eff), 'n/a') as hot_water_environmental_efficiency,
     floor_description,
