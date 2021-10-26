@@ -98,3 +98,75 @@ A Github Action will create the models in the development environment under the 
 Once the tests have passed and the PR has been reviewed and and merged, a Github Action will be update the models in the production environment.
 
 A GitHub action deletes `ci_*` schemas nightly.
+
+## SQL Style Guide
+
+We use the [dbt Labs style guide](https://github.com/dbt-labs/corp/blob/master/dbt_style_guide.md).
+_Optimize for readability, not lines of code._
+
+Here's the example copy-and-pasted from their guide:
+
+```
+with
+
+my_data as (
+
+    select * from {{ ref('my_data') }}
+
+),
+
+some_cte as (
+
+    select * from {{ ref('some_cte') }}
+
+),
+
+some_cte_agg as (
+
+    select
+        id,
+        sum(field_4) as total_field_4,
+        max(field_5) as max_field_5
+
+    from some_cte
+    group by 1
+
+),
+
+final as (
+
+    select [distinct]
+        my_data.field_1,
+        my_data.field_2,
+        my_data.field_3,
+
+        -- use line breaks to visually separate calculations into blocks
+        case
+            when my_data.cancellation_date is null
+                and my_data.expiration_date is not null
+                then expiration_date
+            when my_data.cancellation_date is null
+                then my_data.start_date + 7
+            else my_data.cancellation_date
+        end as cancellation_date,
+
+        some_cte_agg.total_field_4,
+        some_cte_agg.max_field_5
+
+    from my_data
+    left join some_cte_agg
+        on my_data.id = some_cte_agg.id
+    where my_data.field_1 = 'abc'
+        and (
+            my_data.field_2 = 'def' or
+            my_data.field_2 = 'ghi'
+        )
+    having count(*) > 1
+
+)
+
+select * from final
+```
+
+[`SQLFluff`](https://github.com/sqlfluff/sqlfluff) lints models as part of the CI pipeline.
+You can run it locally using `sqlfluff lint` and `sqlfluff fix`.
