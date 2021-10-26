@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: dim_households
+    columns:
+      - name: address_line_1
+      - name: address_line_2
+      - name: address_line_3
+      - name: post_town
+      - name: county
+      - name: postcode
+      - name: epc_building_reference_number
+        tests:
+          - unique
+          - not_null
+      - name: property_type
+      - name: built_form
+      - name: mains_gas_available
+      - name: main_fuel
+      - name: secondary_heating_fuel
+      - name: has_boiler
+      - name: has_warm_air
+      - name: has_storage_heaters
+      - name: has_district_heating
+      - name: has_heat_pump
+      - name: heat_pump_source
+      - name: has_radiators
+      - name: has_underfloor_heating
+      - name: has_secondary_room_heaters
+      - name: has_secondary_portable_heaters
+      - name: has_hot_water_from_heating_system
+      - name: has_electric_immersion_heater

@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: stg_epc__england_wales_certificates
+    description: Energy performance certificates for domestic buildings in England and Wales.
     columns:
       - name: lodgement_identifier
         tests:
