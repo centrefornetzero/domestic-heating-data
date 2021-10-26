@@ -1,0 +1,13 @@
+cnz:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('DEV_PROJECT_ID') }}"
+      schema: "{{ env_var('DBT_USER_INITIALS') }}"
+      threads: 10
+      timeout_seconds: 300
+      location: EU
+      priority: interactive
+      retries: 1
