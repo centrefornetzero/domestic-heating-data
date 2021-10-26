@@ -8,6 +8,30 @@ england_wales_certificates as (
 
 ),
 
+
+most_recently_lodged_certificate_of_inspection as (
+    -- some certificates are repeatedly lodged in the register for the same inspection date
+
+    select
+        * except(row_number_)
+
+    from (
+
+        select
+            *,
+            row_number() over (
+                partition by building_reference_number, inspection_date
+                order by lodgement_datetime desc
+            ) as row_number_
+
+        from england_wales_certificates
+
+    )
+
+    where row_number_ = 1
+),
+
+
 final as (
 
     select
@@ -163,7 +187,7 @@ final as (
             else cast(low_energy_fixed_light_count as int)
         end as low_energy_fixed_light_count
 
-    from england_wales_certificates
+    from most_recently_lodged_certificate_of_inspection
 
 )
 
