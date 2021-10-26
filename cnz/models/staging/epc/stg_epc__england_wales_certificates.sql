@@ -150,7 +150,7 @@ final as (
             else mechanical_ventilation
         end as mechanical_ventilation,
         construction_age_band,  -- needs cleaning
-        lodgement_datetime,
+        lodgement_datetime as lodged_at,
         case
             when tenure in ('NO DATA!', 'unknown', '') then null
             when starts_with(tenure, 'Not defined') then null
