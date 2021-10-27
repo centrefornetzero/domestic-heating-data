@@ -90,7 +90,7 @@ final as (
             when number_open_fireplaces < 0 then null
             else number_open_fireplaces
         end as number_open_fireplaces,
-        hotwater_description as hot_water_description,
+        lower(hotwater_description) as hot_water_description,
         nullif(lower(hot_water_energy_eff), 'n/a') as hot_water_energy_efficiency,
         nullif(lower(hot_water_env_eff), 'n/a') as hot_water_environmental_efficiency,
         floor_description,
@@ -111,7 +111,8 @@ final as (
             when 'None' then null
             when 'Dim' then null  -- dim is Welsh for none
             when 'None|Dim' then null
-        else lower(secondheat_description) as secondary_heat_description,
+            else lower(secondheat_description)
+        end as secondary_heat_description,
         nullif(lower(sheating_energy_eff), 'n/a') as secondary_heating_energy_efficiency,
         nullif(lower(sheating_env_eff), 'n/a') as secondary_heating_environmental_efficiency,
         roof_description,

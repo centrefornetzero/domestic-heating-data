@@ -37,7 +37,6 @@ final as (
 
         -- main heating
         {{ get_heating_fuel('main_heat_description') }} as main_heating_fuel,
-
         contains_substr(main_heat_description, 'boiler') as has_boiler,
         contains_substr(main_heat_description, 'warm air') as has_warm_air,
         contains_substr(main_heat_description, 'storage heaters') as has_storage_heaters,
@@ -53,7 +52,9 @@ final as (
         contains_substr(secondary_heat_description, 'room heaters') or contains_substr(secondary_heat_description, 'gwresogyddion ystafell') as has_secondary_room_heaters,
         contains_substr(secondary_heat_description, 'portable heaters') or contains_substr(secondary_heat_description, 'cludadwy') con as has_secondary_portable_heaters,
 
-        -- TODO: hot_water_description
+        -- hot water
+        contains_substr(hot_water_description, 'from main system') as has_hot_water_from_heating_system,
+        contains_substr(hot_water_description, 'electric immersion') as has_electric_immersion_heater
 
     from most_recently_lodged_certificate_of_inspection
 
