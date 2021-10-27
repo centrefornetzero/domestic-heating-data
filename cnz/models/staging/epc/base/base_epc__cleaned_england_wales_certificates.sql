@@ -106,7 +106,12 @@ final as (
         walls_description,
         nullif(lower(walls_energy_eff), 'n/a') as walls_energy_efficiency,
         nullif(lower(walls_env_eff), 'n/a') as walls_environmental_efficiency,
-        secondheat_description as secondary_heat_description,
+        case secondheat_description
+            when '' then null
+            when 'None' then null
+            when 'Dim' then null  -- dim is Welsh for none
+            when 'None|Dim' then null
+        else lower(secondheat_description) as secondary_heat_description,
         nullif(lower(sheating_energy_eff), 'n/a') as secondary_heating_energy_efficiency,
         nullif(lower(sheating_env_eff), 'n/a') as secondary_heating_environmental_efficiency,
         roof_description,
