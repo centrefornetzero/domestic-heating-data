@@ -9,4 +9,7 @@ echo "==> Copying dbt profile...."
 mkdir -p ~/.dbt || true
 cp profiles.yml.template ~/.dbt/profiles.yml
 
+echo "==> Checking connection to data warehouse..."
+pipenv run dbt debug --project-dir cnz
+
 echo "Done!"
