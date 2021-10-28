@@ -239,6 +239,49 @@ models:
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
+      - name: main_heating_fuel
+        tests:
+          - accepted_values:
+              values: ['gas', 'electricity', 'lpg', 'oil', 'solid fuel', 'biomass']
+      - name: secondary_heating_fuel
+        tests:
+          - accepted_values:
+              values: ['gas', 'electricity', 'lpg', 'oil', 'solid fuel', 'biomass']
+      - name: has_boiler
+        tests:
+          - not_null
+      - name: has_warm_air
+        tests:
+          - not_null
+      - name: has_storage_heaters
+        tests:
+          - not_null
+      - name: has_district_heating
+        tests:
+          - not_null
+      - name: has_heat_pump
+        tests:
+          - not_null
+      - name: heat_pump_source
+      - name: has_radiators
+        tests:
+          - not_null
+      - name: has_underfloor_heating
+        tests:
+          - not_null
+      - name: has_secondary_room_heaters
+        tests:
+          - not_null
+      - name: has_secondary_portable_heaters
+        tests:
+          - not_null
+      - name: has_hot_water_from_heating_system
+        tests:
+          - not_null
+      - name: has_electric_immersion_heater
+        tests:
+          - not_null
+
     tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           column_list: ["building_reference_number", "inspection_date"]
