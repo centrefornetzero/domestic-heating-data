@@ -131,7 +131,7 @@ final as (
             else lower(lighting_energy_eff)
         end as lighting_energy_efficiency,
         nullif(lower(lighting_env_eff), 'n/a') as lighting_environmental_efficiency,
-        main_fuel,
+        {{ get_fuel('main_fuel')|indent(8) }} as main_fuel,
         case
             when wind_turbine_count < 0 then null
             else cast(wind_turbine_count as int)

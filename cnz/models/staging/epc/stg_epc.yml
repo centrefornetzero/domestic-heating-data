@@ -200,6 +200,9 @@ models:
           - accepted_values:
               values: ['very poor', 'poor', 'average', 'good', 'very good']
       - name: main_fuel
+        tests:
+          - accepted_values:
+              values: ['gas', 'electricity', 'lpg', 'oil', 'solid fuel', 'biomass']
       - name: wind_turbine_count
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
@@ -239,11 +242,7 @@ models:
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
-      - name: main_heating_fuel
-        tests:
-          - accepted_values:
-              values: ['gas', 'electricity', 'lpg', 'oil', 'solid fuel', 'biomass']
-      - name: secondary_heating_fuel
+      - name: secondary_fuel
         tests:
           - accepted_values:
               values: ['gas', 'electricity', 'lpg', 'oil', 'solid fuel', 'biomass']
