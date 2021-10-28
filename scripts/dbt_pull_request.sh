@@ -6,8 +6,8 @@ if [[ -z $DBT_PROFILES_DIR ]] ; then
     echo "DBT_PROFILES_DIR not set, so dbt will look for profiles in ~/.dbt/"
 fi
 
-if [[ -z $GITHUB_SHA ]] ; then
-    echo "GITHUB_SHA not set! Required to configure dev dbt profile."
+if [[ -z $GITHUB_HEAD_SHA ]] ; then
+    echo "GITHUB_HEAD_SHA not set! Required to configure dev dbt profile."
     exit 1
 fi
 

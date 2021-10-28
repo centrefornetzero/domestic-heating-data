@@ -4,6 +4,7 @@ env:
   PROD_PROJECT_ID: ${{ secrets.GCP_DATA_WAREHOUSE_PROD_PROJECT_ID }}
   DEV_PROJECT_ID: ${{ secrets.GCP_DATA_WAREHOUSE_DEV_PROJECT_ID }}
   DBT_PROFILES_DIR: ${{ github.workspace }}
+  GITHUB_HEAD_SHA: ${{github.event.pull_request.head.sha}}
 jobs:
   dbt_pull_request:
     runs-on: ubuntu-latest
