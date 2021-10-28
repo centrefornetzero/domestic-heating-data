@@ -65,10 +65,17 @@ final as (
         contains_substr(main_heat_description, 'underfloor') as has_underfloor_heating,
 
         -- secondary heating
-        contains_substr(secondary_heat_description, 'room heaters')
-        or contains_substr(secondary_heat_description, 'gwresogyddion ystafell') as has_secondary_room_heaters,
-        contains_substr(secondary_heat_description, 'portable heaters')
-        or contains_substr(secondary_heat_description, 'cludadwy') as has_secondary_portable_heaters,
+        case
+            when secondary_heat_description is null then false
+            else contains_substr(secondary_heat_description, 'room heaters')
+                or contains_substr(secondary_heat_description, 'gwresogyddion ystafell')
+        end as has_secondary_room_heaters,
+
+        case
+            when secondary_heat_description is null then false
+            else contains_substr(secondary_heat_description, 'portable heaters')
+                or contains_substr(secondary_heat_description, 'cludadwy')
+        end as has_secondary_portable_heaters,
 
         -- hot water
         contains_substr(hot_water_description, 'from main system') as has_hot_water_from_heating_system,
