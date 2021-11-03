@@ -63,7 +63,7 @@ sources:
               example, flats), the PAON will identify the building and a SAON
               will be specified that identifies the separate unit/flat.
           - name: street
-          - name: locality,
+          - name: locality
           - name: town_city
             tests:
               - not_null
