@@ -1,0 +1,95 @@
+version: 2
+
+sources:
+  - name: ppd
+    description: Price Paid Data
+    project: "{{ env_var('PROD_PROJECT_ID') }}"
+    schema: src_ppd
+    tables:
+      - name: england_wales_sales
+        columns:
+          - name: transaction_unique_identifier
+            description: >
+              Generated automatically recording each published sale.
+              Changes each time a sale is recorded.
+            tests:
+              - not_null
+              - unique
+          - name: price
+            description: Sale price stated on the transfer deed.
+            tests:
+              - not_null
+              - dbt_expectations.expect_column_values_to_be_between:
+                  min_value: 0
+          - name: date_of_transfer
+            description: >
+              Date when the sale was completed, as stated on the transfer deed.
+            tests:
+              - not_null
+          - name: postcode
+            description: >
+              Postcode used at the time of the original transaction. Note that
+              postcodes can be reallocated and these changes are not reflected
+              in the Price Paid Dataset.
+          - name: property_type
+            description: >
+              D = Detached, S = Semi-Detached, T = Terraced,
+              F = Flats/Maisonettes, O = Other
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['D', 'S', 'T', 'F', 'O']
+          - name: old_new
+            description: >
+              Y = a newly built property, N = an established residential
+              building
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['Y', 'N']
+          - name: duration
+            description: >
+              Relates to the tenure: F = Freehold, L= Leasehold. Web site does
+              not explain what U means.
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['F', 'L', 'U']
+          - name: primary_addressable_object_name
+            description: Typically the house number or name.
+          - name: secondary_addressable_object_name
+            description: >
+              Where a property has been divided into separate units (for
+              example, flats), the PAON will identify the building and a SAON
+              will be specified that identifies the separate unit/flat.
+          - name: street
+          - name: locality
+          - name: town_city
+            tests:
+              - not_null
+          - name: district
+            tests:
+              - not_null
+          - name: county
+            tests:
+              - not_null
+          - name: ppd_category_type
+            description: >
+              A = Standard Price Paid entry, includes single residential
+              property sold for value. B = Additional Price Paid entry including
+              transfers under a power of sale/repossessions, buy-to-lets
+              (where they can be identified by a Mortgage), transfers to
+              non-private individuals and sales where the property type is
+              classed as ‘Other’.
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['A', 'B']
+          - name: record_status
+            description: >
+              A = Addition, C = Change, D = Delete.
+              Applicable to monthly files only.
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['A', 'C', 'D']

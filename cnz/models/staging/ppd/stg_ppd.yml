@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: stg_ppd__england_wales_sales
+    description: Price Paid Data for England and Wales
+    columns:
+      - name: transaction_unique_identifier
+        tests:
+          - not_null
+          - unique
+      - name: date_of_transfer
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: date
+      - name: price
+      - name: primary_addressable_object_name
+      - name: secondary_addressable_object_name
+      - name: street
+      - name: locality
+      - name: town_city
+      - name: district
+      - name: county
+      - name: postcode
+      - name: entry_type
+        description: >
+          Standard entry includes single residential property sold for value.
+
+          Additional entry includes transfers under a power of
+          sale/repossessions, buy-to-lets (where they can be identified by a
+          Mortgage), transfers to non-private individuals and sales where the
+          property type is classed as ‘Other’.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['standard', 'additional']
+      - name: property_type
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['detatched', 'semi-detatched', 'terraced', 'flat/maisonette', 'other']
+      - name: is_new_build
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: boolean
+      - name: tenure
+        tests:
+          - accepted_values:
+              values: ['freehold', 'leasehold']
