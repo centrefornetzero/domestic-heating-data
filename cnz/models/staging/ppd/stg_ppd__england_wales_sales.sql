@@ -17,7 +17,7 @@ cleaned as (
         nullif(primary_addressable_object_name, '') as primary_addressable_object_name,
         nullif(secondary_addressable_object_name, '') as secondary_addressable_object_name,
         nullif(street, '') as street,
-        nullif(locality, '') as localilty,
+        nullif(locality, '') as locality,
         town_city,
         district,
         county,
