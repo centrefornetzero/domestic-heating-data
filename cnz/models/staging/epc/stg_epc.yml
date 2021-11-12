@@ -281,6 +281,12 @@ models:
       - name: has_electric_immersion_heater
         tests:
           - not_null
+      - name: glazed_type_category
+        tests:
+          - accepted_values:
+              values: ['single', 'double', 'triple']
+      - name: has_loft
+      - name: has_cavity_wall
 
     tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
