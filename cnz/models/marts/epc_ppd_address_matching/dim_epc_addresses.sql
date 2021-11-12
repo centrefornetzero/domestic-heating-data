@@ -1,4 +1,4 @@
-{{ config(schema="epc_ppd_address_matching") }}
+{{ config(schema="epc_ppd_address_matching", materialized="table") }}
 
 with
 
