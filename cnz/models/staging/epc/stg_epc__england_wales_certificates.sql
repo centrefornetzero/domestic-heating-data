@@ -68,16 +68,15 @@ final as (
         -- energy efficiency measures
         case
             when regexp_contains(lower(windows_description), r'single|sengl') then 'single'
-            when regexp_contains(lower(windows_description), r'double|secondary|multiple|high performance|dwbl|lluosog|perfformiad') then 'double'
+            when regexp_contains(lower(windows_description),
+                    r'double|secondary|multiple|high performance|dwbl|lluosog|perfformiad') then 'double'
             when regexp_contains(lower(windows_description), r'triple|triphlyg') then 'triple'
-            else null
         end as glazed_type_category,
 
-       -- building attributes
+        -- building attributes
         case
             when contains_substr(lower(roof_description), 'above') then false
             when roof_description != '' then true
-            else null
         end as has_loft,
 
         case
