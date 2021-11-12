@@ -63,7 +63,28 @@ final as (
 
         -- hot water
         contains_substr(hot_water_description, 'from main system') as has_hot_water_from_heating_system,
-        contains_substr(hot_water_description, 'electric immersion') as has_electric_immersion_heater
+        contains_substr(hot_water_description, 'electric immersion') as has_electric_immersion_heater,
+
+        -- energy efficiency measures
+        case
+            when regexp_contains(lower(windows_description), r'single|sengl') then 'single'
+            when regexp_contains(lower(windows_description), r'double|secondary|multiple|high performance|dwbl|lluosog|perfformiad') then 'double'
+            when regexp_contains(lower(windows_description), r'triple|triphlyg') then 'triple'
+            else null
+        end as glazed_type_category,
+
+       -- building attributes
+        case
+            when contains_substr(lower(roof_description), 'above') then false
+            when roof_description != '' then true
+            else null
+        end as has_loft,
+
+        case
+            when contains_substr(lower(walls_description), 'cavity') then true
+            when walls_description = '' then null
+            else false
+        end as has_cavity_wall
 
     from most_recently_lodged_certificate_of_inspection
 
