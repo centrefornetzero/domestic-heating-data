@@ -18,6 +18,8 @@ addresses as (
         postcode
 
     from ppd
+
+    where postcode is not null
 ),
 
 final as (
