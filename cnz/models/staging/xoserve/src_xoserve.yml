@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: xoserve
+    project: "{{ env_var('PROD_PROJECT_ID') }}"
+    schema: src_xoserve
+    tables:
+      - name: off_gas_postcodes
+        columns:
+          - name: postcode
+            tests:
+              - not_null
+              - unique
