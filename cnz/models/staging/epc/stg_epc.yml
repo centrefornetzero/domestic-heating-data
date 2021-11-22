@@ -281,7 +281,26 @@ models:
       - name: has_electric_immersion_heater
         tests:
           - not_null
-
     tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           column_list: ["building_reference_number", "inspection_date"]
+  - name: stg_epc__england_wales_recommendations
+    description: >
+      Recommendations from energy performance certificates for domestic
+      buildings in England and Wales.
+    columns:
+      - name: lodgement_identifier
+        tests:
+          - not_null
+          - relationships:
+              to: ref("stg_epc__england_wales_certificates")
+              field: lodgement_identifier
+      - name: improvement_item_number
+        tests:
+          - not_null
+      - name: improvement_id
+      - name: improvement_summary
+      - name: improvement_description
+      - name: indicative_cost
+        tests:
+          - not_null

@@ -189,3 +189,14 @@ sources:
             description: The number of fixed lighting outlets.
           - name: LOW_ENERGY_FIXED_LIGHT_COUNT
             description: The number of low-energy fixed lighting outlets.
+      - name: england_wales_recommendations
+        columns:
+          # The glossary for england_wales_certificates doesn't include this
+          # table.
+          - name: LMK_KEY
+          - name: IMPROVEMENT_ITEM
+          - name: IMPROVEMENT_SUMMARY_TEXT
+          - name: IMPROVEMENT_DESCR_TEXT
+          - name: IMPROVEMENT_ID
+          - name: IMPROVEMENT_ID_TEXT
+          - name: INDICATIVE_COST
