@@ -302,5 +302,3 @@ models:
       - name: improvement_summary
       - name: improvement_description
       - name: indicative_cost
-        tests:
-          - not_null
