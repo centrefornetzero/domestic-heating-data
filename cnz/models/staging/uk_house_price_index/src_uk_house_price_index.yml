@@ -1,0 +1,67 @@
+version: 2
+
+sources:
+  - name: uk_house_price_index
+    description: HM Land Registry UK House Price Index
+    project: "{{ env_var('PROD_PROJECT_ID') }}"
+    schema: src_uk_house_price_index
+    tables:
+      - name: full
+        columns:
+        # https://www.gov.uk/government/publications/about-the-uk-house-price-index/about-the-uk-house-price-index#data-tables
+        - name: Date
+          tests:
+            - not_null
+        - name: RegionName
+          tests:
+            - not_null
+        - name: AreaCode
+          tests:
+            - not_null
+        - name: AveragePrice
+        - name: Index
+        - name: IndexSeasonallyAdjusted
+        - name: Index1mPercentChange
+        - name: Index12mPercentChange
+        - name: AveragePriceSeasonallyAdjusted
+        - name: SalesVolume
+        - name: DetachedPrice
+        - name: DetachedIndex
+        - name: Detached1mPercentChange
+        - name: Detached12mPercentChange
+        - name: SemiDetachedPrice
+        - name: SemiDetachedIndex
+        - name: SemiDetached1mPercentChange
+        - name: SemiDetached12mPercentChange
+        - name: TerracedPrice
+        - name: TerracedIndex
+        - name: Terraced1mPercentChange
+        - name: Terraced12mPercentChange
+        - name: FlatPrice
+        - name: FlatIndex
+        - name: Flat1mPercentChange
+        - name: Flat12mPercentChange
+        - name: CashPrice
+        - name: CashIndex
+        - name: Cash1mPercentChange
+        - name: Cash12mPercentChange
+        - name: CashSalesVolume
+        - name: MortgagePrice
+        - name: MortgageIndex
+        - name: Mortgage1mPercentChange
+        - name: Mortgage12mPercentChange
+        - name: MortgageSalesVolume
+        - name: FTBPrice
+        - name: FTBIndex
+        - name: FTB1mPercentChange
+        - name: FTB12mPercentChange
+        - name: FOOPrice
+        - name: FOOIndex
+        - name: FOO1mPercentChange
+        - name: FOO12mPercentChange
+        - name: NewPrice
+        - name: NewIndex
+        - name: New1mPercentChange
+        - name: New12mPercentChange
+        - name: NewSalesVolume
+        - name: OldPrice
