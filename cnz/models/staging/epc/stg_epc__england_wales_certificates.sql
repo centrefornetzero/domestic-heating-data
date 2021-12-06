@@ -45,6 +45,8 @@ final as (
         regexp_extract(main_heat_description, "(\\w+) source heat pump") as heat_pump_source,
         contains_substr(main_heat_description, 'radiators') as has_radiators,
         contains_substr(main_heat_description, 'underfloor') as has_underfloor_heating,
+        {{ get_fuel('main_heat_description')|indent(8) }} as main_heat_fuel,
+        {{ get_fuel('hot_water_description')|indent(8) }} as main_hotwater_fuel,
 
         -- secondary heating
         case
@@ -63,7 +65,10 @@ final as (
 
         -- hot water
         contains_substr(hot_water_description, 'from main system') as has_hot_water_from_heating_system,
-        contains_substr(hot_water_description, 'electric immersion') as has_electric_immersion_heater
+        contains_substr(hot_water_description, 'electric immersion') as has_electric_immersion_heater,
+
+        -- property features
+        roof_description in ('(another dwelling above)', '(another premises above)') as has_premises_above
 
     from most_recently_lodged_certificate_of_inspection
 

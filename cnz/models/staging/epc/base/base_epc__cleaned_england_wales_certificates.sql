@@ -93,17 +93,17 @@ final as (
         lower(hotwater_description) as hot_water_description,
         nullif(lower(hot_water_energy_eff), 'n/a') as hot_water_energy_efficiency,
         nullif(lower(hot_water_env_eff), 'n/a') as hot_water_environmental_efficiency,
-        floor_description,
+        lower(floor_description) as floor_description,
         case floor_energy_eff
             when 'N/A' then null
             when 'NO DATA!' then null
             else lower(floor_energy_eff)
         end as floor_energy_efficiency,
         nullif(lower(floor_env_eff), 'n/a') as floor_environmental_efficiency,
-        windows_description,
+        lower(windows_description) as windows_description,
         nullif(lower(windows_energy_eff), 'n/a') as windows_energy_efficiency,
         nullif(lower(windows_env_eff), 'n/a') as windows_environmental_efficiency,
-        walls_description,
+        lower(walls_description) as walls_description,
         nullif(lower(walls_energy_eff), 'n/a') as walls_energy_efficiency,
         nullif(lower(walls_env_eff), 'n/a') as walls_environmental_efficiency,
         case secondheat_description
@@ -115,7 +115,7 @@ final as (
         end as secondary_heat_description,
         nullif(lower(sheating_energy_eff), 'n/a') as secondary_heating_energy_efficiency,
         nullif(lower(sheating_env_eff), 'n/a') as secondary_heating_environmental_efficiency,
-        roof_description,
+        lower(roof_description) as roof_description,
         nullif(lower(roof_energy_eff), 'n/a') as roof_energy_efficiency,
         nullif(lower(roof_env_eff), 'n/a') as roof_environmental_efficiency,
         lower(mainheat_description) as main_heat_description,

@@ -1,32 +1,80 @@
 version: 2
 
 models:
+  # This model will contain nulls carried through from the EPC data. You may wish to drop these for analysis
   - name: dim_households
     columns:
+      - name: epc_building_reference_number
+        tests:
+          - unique
+          - not_null
       - name: address_line_1
       - name: address_line_2
       - name: address_line_3
       - name: post_town
       - name: county
       - name: postcode
-      - name: epc_building_reference_number
+      - name: property_value_gbp
         tests:
-          - unique
-          - not_null
+        - dbt_expectations.expect_column_values_to_be_between:
+            min_value: 0
+            row_condition: "property_value_gbp is not null"
+            strictly: true
+      - name: floor_area_sqm
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              row_condition: "floor_area_sqm is not null"
+              strictly: true
+      - name: construction_year_band
+      #   tests:
+      #     - not_null
+      #     - accepted_values:
+      #         values: ['BUILT_PRE_1919', 'BUILT_1919_1944', 'BUILT_1945_1964', 'BUILT_1965_1982', 'BUILT_1983_1992', 'BUILT_1993_1999', 'BUILT_POST_1999']
       - name: property_type
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['flat', 'house', 'bungalow', 'park home']
       - name: built_form
-      - name: mains_gas_available
-      - name: main_fuel
-      - name: secondary_heating_fuel
-      - name: has_boiler
-      - name: has_warm_air
-      - name: has_storage_heaters
-      - name: has_district_heating
-      - name: has_heat_pump
-      - name: heat_pump_source
-      - name: has_radiators
-      - name: has_underfloor_heating
-      - name: has_secondary_room_heaters
-      - name: has_secondary_portable_heaters
-      - name: has_hot_water_from_heating_system
-      - name: has_electric_immersion_heater
+        tests:
+          - accepted_values:
+              values: ['detached', 'semi_detached', 'mid_terrace', 'end_terrace']
+      - name: wall_type
+        tests:
+          - accepted_values:
+              values: ['solid', 'cavity']
+      - name: epc_rating
+        tests:
+          - accepted_values:
+              values: ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+      - name: potential_epc_rating
+        tests:
+          - accepted_values:
+              values: ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+      - name: heating_system
+        tests:
+          - accepted_values:
+              values: ['air_source_heat_pump', 'ground_source_heat_pump', 'gas_boiler', 'electric_boiler', 'oil_boiler']
+      - name: walls_energy_efficiency
+        tests:
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+              quote: false
+      - name: windows_energy_efficiency
+        tests:
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+              quote: false
+      - name: roof_energy_efficiency
+        tests:
+          # May be -1 if not applicable if e.g a flat and another dwelling is above
+          - accepted_values:
+              values: [-1, 1, 2, 3, 4, 5]
+              quote: false
+      - name: occupant_type
+        tests:
+          - accepted_values:
+              values: ['owner_occupied', 'rented_private', 'rented_social']
+      - name: local_authority_district_name_2020
+      - name: off_gas_grid
