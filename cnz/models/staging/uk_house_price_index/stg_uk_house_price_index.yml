@@ -1,0 +1,60 @@
+version: 2
+
+models:
+  - name: stg_uk_house_price_index__full
+    description: HM Land Registry UK House Price Index
+    columns:
+      - name: period
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: date
+      - name: region_name
+        tests:
+          - not_null
+      - name: area_code
+        tests:
+          - not_null
+      - name: index_12m_percent_change
+      - name: average_price_seasonally_adjusted
+      - name: sales_volume
+      - name: detached_price
+      - name: detached_index
+      - name: detached_1m_percent_change
+      - name: detached_12m_percent_change
+      - name: semi_detached_price
+      - name: semi_detached_index
+      - name: semi_detached_1m_percent_change
+      - name: semi_detached_12m_percent_change
+      - name: terraced_price
+      - name: terraced_index
+      - name: terraced_1m_percent_change
+      - name: terraced_12m_percent_change
+      - name: flat_price
+      - name: flat_index
+      - name: flat_1m_percent_change
+      - name: flat_12m_percent_change
+      - name: cash_price
+      - name: cash_index
+      - name: cash_1m_percent_change
+      - name: cash_12m_percent_change
+      - name: cash_sales_volume
+      - name: mortgage_price
+      - name: mortgage_index
+      - name: mortgage_1m_percent_change
+      - name: mortgage_12m_percent_change
+      - name: mortgage_sales_volume
+      - name: first_time_buyer_price
+      - name: first_time_buyer_index
+      - name: first_time_buyer_1m_percent_change
+      - name: first_time_buyer_12m_percent_change
+      - name: former_owner_occupier_price
+      - name: former_owner_occupier_index
+      - name: former_owner_occupier_1m_percent_change
+      - name: former_owner_occupier_12m_percent_change
+      - name: new_price
+      - name: new_index
+      - name: new_1m_percent_change
+      - name: new_12m_percent_change
+      - name: new_sales_volume
+      - name: old_price
