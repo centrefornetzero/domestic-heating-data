@@ -86,7 +86,12 @@ models:
       - name: hot_water_cost_potential
         tests:
           - not_null
-      - name: total_floor_area
+      - name: total_floor_area_m2
+        description: |
+          The total useful floor area is the total of all enclosed spaces measured to
+          the internal face of the external walls, i.e. the gross floor area as measured
+          in accordance with the guidance issued from time to time by the Royal
+          Institute of Chartered Surveyors or by a body replacing that institution.
       - name: energy_tariff
       - name: mains_gas_available
       - name: floor_level
