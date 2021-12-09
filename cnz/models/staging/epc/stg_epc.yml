@@ -92,6 +92,10 @@ models:
           the internal face of the external walls, i.e. the gross floor area as measured
           in accordance with the guidance issued from time to time by the Royal
           Institute of Chartered Surveyors or by a body replacing that institution.
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              row_condition: "total_floor_area_m2 is not null"
       - name: energy_tariff
       - name: mains_gas_available
       - name: floor_level
