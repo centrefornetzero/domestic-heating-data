@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: epc_ppd_address_matching
+    project: "{{ env_var('PROD_PROJECT_ID') }}"
+    schema: src_epc_ppd_address_matching
+    tables:
+      - name: matches
+        columns:
+          - name: address_id
+            description: Unique ID for address. From `marts/epc_pdd_address_matching`.
+            tests:
+              - not_null
+          - name: cluster_id
+            description: ID assigned to clusters of addresses describing same premises.
+            tests:
+              - not_null
