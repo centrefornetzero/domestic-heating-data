@@ -28,7 +28,9 @@ latest_building_certificates as (
 ),
 
 off_gas_postcodes as (
+
     select postcode from {{ ref('stg_xoserve__off_gas_postcodes') }}
+
 ),
 
 epc_features as (
@@ -44,11 +46,9 @@ epc_features as (
         postcode,
 
         -- Property features
-        case
-            when total_floor_area <= 0 then null else total_floor_area
-        end as floor_area_sqm,
-
-        null as construction_age_band, --todo: ingest this column into src_epc --todo: remapping values
+        total_floor_area_m2,
+        null as construction_age_band,
+        has_premises_above,
 
         case
             when property_type in ('flat', 'maisonette') then 'flat'
@@ -83,15 +83,14 @@ epc_features as (
         {{ convert_efficiency_to_integer('walls_energy_efficiency')|indent(8) }} as walls_energy_efficiency,
         {{ convert_efficiency_to_integer('windows_energy_efficiency')|indent(8) }} as windows_energy_efficiency,
         case
-            when has_premises_above then -1 -- Roof energy efficiency is "not applicable" in this case
+            when has_premises_above then null
             else {{ convert_efficiency_to_integer('roof_energy_efficiency')|indent(8) }}
         end as roof_energy_efficiency,
 
-        -- Occupant features
-        case
-            when tenure = 'owner-occupied' then 'owner_occupied'
-            when tenure = 'rented (private)' then 'rented_private'
-            when tenure = 'rented (social)' then 'rented_social'
+        case tenure
+            when 'owner-occupied' then 'owner_occupied'
+            when 'rented (private)' then 'rented_private'
+            when 'rented (social)' then 'rented_social'
         end as occupant_type
 
 
@@ -100,15 +99,17 @@ epc_features as (
 ),
 
 final as (
+
     select
-        null as local_authority_district_name_2020, -- todo: join on postcode <> lad20cd <> lad20nm using nsul
+        null as local_authority_district_name_2020,
         epc_features.*,
-        null as property_value_gbp, --todo: join on ppd data
+        null as property_value_gbp,
         epc_features.property_type not in ("flat", "park home", "mid_terrace") as is_heat_pump_suitable_archetype,
-        off_gas_postcodes.postcode is not null as off_gas_grid
+        off_gas_postcodes.postcode is not null as is_off_gas_grid
 
     from epc_features
     left join off_gas_postcodes on epc_features.postcode = off_gas_postcodes.postcode
+
 )
 
 select * from final

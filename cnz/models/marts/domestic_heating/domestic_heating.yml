@@ -20,17 +20,20 @@ models:
             min_value: 0
             row_condition: "property_value_gbp is not null"
             strictly: true
-      - name: floor_area_sqm
+      - name: total_floor_area_m2
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
-              row_condition: "floor_area_sqm is not null"
+              row_condition: "total_floor_area_m2 is not null"
               strictly: true
       - name: construction_year_band
       #   tests:
       #     - not_null
       #     - accepted_values:
       #         values: ['BUILT_PRE_1919', 'BUILT_1919_1944', 'BUILT_1945_1964', 'BUILT_1965_1982', 'BUILT_1983_1992', 'BUILT_1993_1999', 'BUILT_POST_1999']
+      - name: has_premises_above
+        tests:
+          - not_null
       - name: property_type
         tests:
           - not_null
@@ -67,10 +70,10 @@ models:
               values: [1, 2, 3, 4, 5]
               quote: false
       - name: roof_energy_efficiency
+        description: Null if no roof (has_premises_above=True).
         tests:
-          # May be -1 if not applicable if e.g a flat and another dwelling is above
           - accepted_values:
-              values: [-1, 1, 2, 3, 4, 5]
+              values: [1, 2, 3, 4, 5]
               quote: false
       - name: occupant_type
         tests:
