@@ -73,10 +73,18 @@ epc_features as (
         case
             when heat_pump_source = 'air' then 'air_source_heat_pump'
             when heat_pump_source = 'ground' then 'ground_source_heat_pump'
-            when main_fuel = 'gas' or main_hotwater_fuel = 'gas' then 'gas_boiler'
-            when main_fuel = 'electricity' or main_hotwater_fuel = 'electricity' then 'electric_boiler'
-            -- treat all oil/lpg/solid fuel/biomass houses as 'oil boiler' houses in our modelling
-            when main_fuel is not null or main_hotwater_fuel is not null then 'oil_boiler'
+            -- Prioritise main_fuel column first
+            when main_fuel = 'gas' then 'gas_boiler'
+            when main_fuel = 'electricity' then 'electric_boiler'
+            when main_fuel is not null then 'oil_boiler'
+            -- Then main_heat_fuel second
+            when main_heat_fuel = 'gas' then 'gas_boiler'
+            when main_heat_fuel = 'electricity' then 'electric_boiler'
+            when main_heat_fuel is not null then 'oil_boiler'
+            -- and finally main_hotwater_fuel
+            when main_hotwater_fuel = 'gas' then 'gas_boiler'
+            when main_hotwater_fuel = 'electricity' then 'electric_boiler'
+            when main_hotwater_fuel is not null then 'oil_boiler'
         end as heating_system,
 
         -- Energy efficiencies
