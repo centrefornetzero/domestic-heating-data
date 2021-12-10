@@ -291,6 +291,9 @@ models:
       - name: has_electric_immersion_heater
         tests:
           - not_null
+      - name: has_premises_above
+        tests:
+          - not_null
     tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           column_list: ["building_reference_number", "inspection_date"]
