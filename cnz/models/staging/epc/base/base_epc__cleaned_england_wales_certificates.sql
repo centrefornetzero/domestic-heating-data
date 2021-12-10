@@ -46,7 +46,7 @@ final as (
         heating_cost_potential,
         hot_water_cost_current,
         hot_water_cost_potential,
-        total_floor_area as total_floor_area_m2,
+        if(total_floor_area > 0, total_floor_area, null) as total_floor_area_m2,
         case energy_tariff
             when '' then null
             when 'NO DATA!' then null
