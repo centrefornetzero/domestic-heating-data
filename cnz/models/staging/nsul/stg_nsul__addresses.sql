@@ -16,7 +16,13 @@ local_authority_districts as (
 
 final as (
 
-    select * from nsul_addresses
+    select
+        nsul_addresses.uprn,
+        nsul_addresses.postcode,
+        nsul_addresses.lad21cd as local_authority_district_code,
+        local_authority_districts.local_authority_district_name
+
+    from nsul_addresses
     join local_authority_districts
         -- 2021-11 edition only incudes a lad20 lookup, not lad21
         on nsul_addresses.lad21cd = local_authority_districts.lad20cd

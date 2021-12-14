@@ -17,8 +17,7 @@ sources:
           description: Easting - National Grid Reference
         - name: gridgb1n
           description: Northing - National Grid Reference
-        - name: pcds
-          description: Post code (variable length)
+        - name: postcode
         - name: oa11cd
           description: 2011 Census Output Area code
         - name: cty21cd
