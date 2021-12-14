@@ -18,7 +18,8 @@ final as (
 
     select * from nsul_addresses
     join local_authority_districts
-        on nsul_addresses.lad20cd = local_authority_districts.lad20cd
+        -- 2021-11 edition only incudes a lad20 lookup, not lad21
+        on nsul_addresses.lad21cd = local_authority_districts.lad20cd
 
 )
 
