@@ -6,15 +6,9 @@ sources:
     project: "{{ env_var('PROD_PROJECT_ID') }}"
     schema: src_nsul
     tables:
-      - name: nsul
-        partition_by:
-          field: dataset_date
-          data_type: date
-          granularity: day
+      - name: addresses
+        identifier: "src_2021-11_addresses"
         columns:
-        - name: dataset_date
-          tests:
-            - not_null
         - name: uprn
           description: Unique property reference number
           tests:
@@ -23,8 +17,7 @@ sources:
           description: Easting - National Grid Reference
         - name: gridgb1n
           description: Northing - National Grid Reference
-        - name: pcds
-          description: Post code (variable length)
+        - name: postcode
         - name: oa11cd
           description: 2011 Census Output Area code
         - name: cty21cd
@@ -54,3 +47,15 @@ sources:
         - name: lep17cd2
         - name: pfa15cd
         - name: imd19ind
+      - name: local_authority_districts
+        identifier: "src_2021-11_local_authority_districts"
+        columns:
+        - name: lad20cd
+          tests:
+            - not_null
+            - unique
+        - name: local_authority_district_name
+          tests:
+            - not_null
+            - unique
+        - name: local_authority_district_name_welsh
