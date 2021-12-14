@@ -56,6 +56,11 @@ models:
           - accepted_values:
               values: ['A', 'B', 'C', 'D', 'E', 'F', 'G']
       - name: heating_system
+        description:
+          Derived heating system for our modelling using fuel source.
+          We treat all oil/lpg/solid fuel/biomass houses as 'oil_boiler' houses in our modelling.
+          main_fuel is considered first, then main_heat_fuel, then main_hotwater_fuel.
+          Main sources of missingness from description cols is sap05 values and 'community scheme' heating where fuel source is unknown
         tests:
           - accepted_values:
               values: ['air_source_heat_pump', 'ground_source_heat_pump', 'gas_boiler', 'electric_boiler', 'oil_boiler']
