@@ -189,6 +189,10 @@ sources:
             description: The number of fixed lighting outlets.
           - name: LOW_ENERGY_FIXED_LIGHT_COUNT
             description: The number of low-energy fixed lighting outlets.
+          - name: UPRN
+            description: The UPRN submitted by an assessor or alternatively from the department's address matching algorithm.
+          - name: UPRN_SOURCE
+            description: Populated with the values "Energy Assessor" or "Address Matched" to show how the UPRN was populated.
       - name: england_wales_recommendations
         columns:
           # The glossary for england_wales_certificates doesn't include this
