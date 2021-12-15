@@ -47,7 +47,13 @@ epc_features as (
 
         -- Property features
         total_floor_area_m2,
-        {{ clean_construction_age_band('construction_age_band')|indent(8) }} as construction_age_band,
+        concat(
+            'built_',
+            replace(
+                replace(construction_age_band, '2007-onwards', '2007-2011'),
+                '-', '_'
+            )
+        ) as construction_age_band,
         has_premises_above,
 
         case
