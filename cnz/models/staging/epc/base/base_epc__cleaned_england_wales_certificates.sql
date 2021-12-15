@@ -204,7 +204,9 @@ final as (
         case
             when low_energy_fixed_light_count < 0 then null
             else cast(low_energy_fixed_light_count as int)
-        end as low_energy_fixed_light_count
+        end as low_energy_fixed_light_count,
+        uprn,
+        nullif(lower(uprn_source), '') as uprn_source
 
     from england_wales_certificates
 

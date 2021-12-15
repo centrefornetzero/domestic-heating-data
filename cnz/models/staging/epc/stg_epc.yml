@@ -300,6 +300,11 @@ models:
       - name: has_premises_above
         tests:
           - not_null
+      - name: uprn
+      - name: uprn_source
+        tests:
+          - accepted_values:
+              values: ['energy assessor', 'address matched']
     tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           column_list: ["building_reference_number", "inspection_date"]

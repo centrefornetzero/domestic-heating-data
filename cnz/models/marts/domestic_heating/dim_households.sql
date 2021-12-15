@@ -118,7 +118,9 @@ final as (
         null as local_authority_district_name_2020,
         epc_features.*,
         null as property_value_gbp,
-        epc_features.property_type not in ("flat", "park home", "mid_terrace") as is_heat_pump_suitable_archetype,
+        epc_features.property_type not in (
+            'flat', 'park home'
+        ) and epc_features.built_form != 'mid_terrace' as is_heat_pump_suitable_archetype,
         off_gas_postcodes.postcode is not null as is_off_gas_grid
 
     from epc_features
