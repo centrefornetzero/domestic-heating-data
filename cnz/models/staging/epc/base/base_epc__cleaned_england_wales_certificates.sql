@@ -27,6 +27,10 @@ final as (
             when built_form in ('NO DATA!', '') then null
             else lower(built_form)
         end as built_form,
+        case
+            when construction_age_band in ('NO DATA!', 'INVALID!', 'Not applicable', '') then null
+            else lower(construction_age_band)
+        end as construction_age_band,
         inspection_date,
         nullif(local_authority, '') as ons_local_authority_code,
         nullif(constituency, '') as ons_constituency_code,
