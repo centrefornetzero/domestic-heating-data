@@ -4,15 +4,7 @@ models:
   # This model will contain nulls carried through from the EPC data. You may wish to drop these for analysis
   - name: dim_households
     columns:
-      - name: epc_building_reference_number
-        tests:
-          - unique
-          - not_null
-      - name: address_line_1
-      - name: address_line_2
-      - name: address_line_3
-      - name: post_town
-      - name: county
+      - name: uprn
       - name: postcode
       - name: property_value_gbp
         tests:

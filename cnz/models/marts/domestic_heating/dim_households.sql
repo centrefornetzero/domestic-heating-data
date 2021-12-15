@@ -33,16 +33,19 @@ off_gas_postcodes as (
 
 ),
 
+nsul as (
+
+    select
+        uprn,
+        local_authority_district_name
+    from {{ ref('stg_nsul__addresses') }}
+),
+
 epc_features as (
 
     select
-        -- Address and ID information
-        building_reference_number as epc_building_reference_number,
-        address_line_1,
-        address_line_2,
-        address_line_3,
-        post_town,
-        county,
+
+        uprn,
         postcode,
 
         -- Property features
@@ -109,8 +112,8 @@ epc_features as (
 final as (
 
     select
-        null as local_authority_district_name_2020,
-        epc_features.*,
+        nsul.local_authority_district_name as local_authority_district_name_2020,
+        epc_features.* except (postcode),
         null as property_value_gbp,
         epc_features.property_type not in (
             'flat', 'park home'
@@ -119,6 +122,7 @@ final as (
 
     from epc_features
     left join off_gas_postcodes on epc_features.postcode = off_gas_postcodes.postcode
+    left join nsul on nsul.uprn = epc_features.uprn
 
 )
 
