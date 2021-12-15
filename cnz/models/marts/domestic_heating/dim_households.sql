@@ -16,10 +16,11 @@ latest_building_certificates as (
         select
             *,
             row_number() over (
-                partition by building_reference_number order by inspection_date desc
+                partition by uprn order by inspection_date desc
             ) as most_recent_building_certificate_ordinal
 
         from certificates
+        where uprn is not null
 
     )
 
@@ -39,6 +40,7 @@ nsul as (
         uprn,
         local_authority_district_name
     from {{ ref('stg_nsul__addresses') }}
+
 ),
 
 epc_features as (
@@ -122,7 +124,7 @@ final as (
 
     from epc_features
     left join off_gas_postcodes on epc_features.postcode = off_gas_postcodes.postcode
-    left join nsul on nsul.uprn = epc_features.uprn
+    join nsul on nsul.uprn = epc_features.uprn
 
 )
 
