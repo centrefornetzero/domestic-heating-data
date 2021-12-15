@@ -47,7 +47,7 @@ epc_features as (
 
         -- Property features
         total_floor_area_m2,
-        null as construction_age_band,
+        {{ clean_construction_age_band('construction_age_band')|indent(8) }} as construction_age_band,
         has_premises_above,
 
         case
