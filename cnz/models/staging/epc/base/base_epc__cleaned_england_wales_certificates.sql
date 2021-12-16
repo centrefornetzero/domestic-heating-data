@@ -177,7 +177,9 @@ final as (
             end,
             case
                 -- deal with outliers first
-                when safe_cast(construction_age_band as int) > 2021 then null
+                when safe_cast(construction_age_band as int) > (
+                    select extract(year from max(inspection_date)) from england_wales_certificates
+                ) then null
                 -- Convert numerical values to bands
                 when safe_cast(construction_age_band as int) < 1900 then 'pre-1900'
                 when safe_cast(construction_age_band as int) between 1900 and 1929 then '1900-1929'
