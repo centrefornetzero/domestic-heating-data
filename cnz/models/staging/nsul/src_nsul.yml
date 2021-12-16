@@ -7,7 +7,7 @@ sources:
     schema: src_nsul
     tables:
       - name: addresses
-        identifier: "src_2021-11_addresses"
+        identifier: "2021-11_addresses"
         columns:
         - name: uprn
           description: Unique property reference number
@@ -48,7 +48,7 @@ sources:
         - name: pfa15cd
         - name: imd19ind
       - name: local_authority_districts
-        identifier: "src_2021-11_local_authority_districts"
+        identifier: "2021-11_local_authority_districts"
         columns:
         - name: lad20cd
           tests:
