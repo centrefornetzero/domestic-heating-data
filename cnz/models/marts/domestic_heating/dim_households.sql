@@ -38,6 +38,7 @@ nsul as (
 
     select
         uprn,
+        local_authority_district_code,
         local_authority_district_name
     from {{ ref('stg_nsul__addresses') }}
 
@@ -117,6 +118,7 @@ epc_features as (
 final as (
 
     select
+        nsul.local_authority_district_code as local_authority_district_code_2021,
         nsul.local_authority_district_name as local_authority_district_name_2020,
         epc_features.* except (postcode),
         null as property_value_gbp,

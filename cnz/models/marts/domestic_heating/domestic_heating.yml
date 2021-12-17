@@ -83,4 +83,5 @@ models:
           - accepted_values:
               values: ['owner_occupied', 'rented_private', 'rented_social']
       - name: local_authority_district_name_2020
+      - name: local_authority_district_code_2021
       - name: off_gas_grid
