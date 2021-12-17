@@ -21,11 +21,14 @@ models:
               min_value: 0
               row_condition: "total_floor_area_m2 is not null"
               strictly: true
-      - name: construction_year_band
-      #   tests:
-      #     - not_null
-      #     - accepted_values:
-      #         values: ['BUILT_PRE_1919', 'BUILT_1919_1944', 'BUILT_1945_1964', 'BUILT_1965_1982', 'BUILT_1983_1992', 'BUILT_1993_1999', 'BUILT_POST_1999']
+      - name: construction_age_band
+        tests:
+          - accepted_values:
+              values: [
+                'built_pre_1900', 'built_1900_1929', 'built_1930_1949', 'built_1950_1966', 'built_1967_1975', 
+                'built_1976_1982', 'built_1983_1990', 'built_1991_1995', 'built_1996_2002', 'built_2003_2006', 
+                'built_2007_onwards'
+              ]
       - name: has_premises_above
         tests:
           - not_null
