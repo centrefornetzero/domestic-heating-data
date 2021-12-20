@@ -24,21 +24,35 @@ epc_features as (
 
 ),
 
+sales as (
+
+    select * from {{ ref("base_domestic_heating__ppd_matched_sales") }}
+
+),
+
 final as (
 
     select
         nsul.local_authority_district_code as local_authority_district_code_2021,
         nsul.local_authority_district_name as local_authority_district_name_2020,
+
         epc_features.* except (postcode),
-        null as property_value_gbp,
+
+        sales.price as property_value_gbp,
+
         epc_features.property_type not in (
             'flat', 'park home'
         ) and epc_features.built_form != 'mid_terrace' as is_heat_pump_suitable_archetype,
+
         off_gas_postcodes.postcode is not null as is_off_gas_grid
 
     from epc_features
+
     left join off_gas_postcodes on epc_features.postcode = off_gas_postcodes.postcode
+
     join nsul on nsul.uprn = epc_features.uprn
+
+    join sales on epc_features.address_cluster_id = sales.address_cluster_id
 
 )
 

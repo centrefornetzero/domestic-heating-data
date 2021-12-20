@@ -2,6 +2,12 @@
 
 with
 
+epc_pdd_address_matches as (
+
+    select * from {{ ref('stg_epc_ppd_address_matching__matches') }}
+
+),
+
 certificates as (
 
     select * from {{ ref('stg_epc__england_wales_certificates') }}
@@ -35,6 +41,7 @@ final as (
     select
         uprn,
         postcode,
+        epc_pdd_address_matches.cluster_id as address_cluster_id,
 
         -- Property features
         total_floor_area_m2,
@@ -97,6 +104,9 @@ final as (
 
 
     from latest_building_certificates
+
+    left join epc_pdd_address_matches
+        on latest_building_certificates.address_matching_id = epc_pdd_address_matches.address_id
 )
 
 select * from final
