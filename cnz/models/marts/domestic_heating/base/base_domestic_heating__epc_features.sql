@@ -36,12 +36,12 @@ latest_building_certificates as (
 
 ),
 
-final as (
+epc_features as (
 
     select
         uprn,
         postcode,
-        epc_pdd_address_matches.cluster_id as address_cluster_id,
+        address_matching_id,
 
         -- Property features
         total_floor_area_m2,
@@ -102,11 +102,21 @@ final as (
             when 'rented (social)' then 'rented_social'
         end as occupant_type
 
-
     from latest_building_certificates
 
+),
+
+final as (
+
+    select
+        epc_features.* except(address_matching_id),
+        epc_pdd_address_matches.cluster_id as address_cluster_id
+
+    from epc_features
+
     left join epc_pdd_address_matches
-        on latest_building_certificates.address_matching_id = epc_pdd_address_matches.address_id
+        on epc_features.address_matching_id = epc_pdd_address_matches.address_id
+
 )
 
 select * from final
