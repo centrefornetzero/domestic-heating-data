@@ -46,3 +46,7 @@ models:
         tests:
           - accepted_values:
               values: ['freehold', 'leasehold']
+      - name: address_matching_id
+        description: CNZ address identifier for address matching.
+        tests:
+          - not_null

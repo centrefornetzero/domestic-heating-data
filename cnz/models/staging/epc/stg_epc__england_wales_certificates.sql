@@ -34,6 +34,13 @@ final as (
 
     select
         *,
+
+        md5(
+            to_json_string(
+                struct(building_reference_number, address_line_1, address_line_2, address_line_3, post_town, postcode)
+            )
+        ) as address_matching_id,
+
         -- main heating
         contains_substr(main_heat_description, 'boiler') as has_boiler,
         contains_substr(main_heat_description, 'warm air') as has_warm_air,
