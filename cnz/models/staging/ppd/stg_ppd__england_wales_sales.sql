@@ -45,6 +45,21 @@ cleaned as (
 
     from ppd_england_wales_sales
 
+),
+
+final as (
+
+    select
+        *,
+        md5(
+            to_json_string(
+                struct(primary_addressable_object_name, secondary_addressable_object_name, street, town_city, postcode)
+            )
+        ) as address_matching_id
+
+    from cleaned
+
 )
 
-select * from cleaned
+
+select * from final
