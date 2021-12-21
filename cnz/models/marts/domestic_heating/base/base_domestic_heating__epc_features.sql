@@ -72,6 +72,9 @@ epc_features as (
 
         -- Heating system modelling
         case
+            -- Ignore district heating
+            when has_district_heating then null
+            -- Heat pumps
             when heat_pump_source = 'air' then 'air_source_heat_pump'
             when heat_pump_source = 'ground' then 'ground_source_heat_pump'
             -- Prioritise main_fuel column first
