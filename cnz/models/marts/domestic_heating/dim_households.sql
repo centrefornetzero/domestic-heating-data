@@ -50,9 +50,9 @@ final as (
 
     left join off_gas_postcodes on epc_features.postcode = off_gas_postcodes.postcode
 
-    join nsul on nsul.uprn = epc_features.uprn
+    left join nsul on nsul.uprn = epc_features.uprn
 
-    join sales on epc_features.address_cluster_id = sales.address_cluster_id
+    left join sales on epc_features.address_cluster_id = sales.address_cluster_id
 
 )
 
