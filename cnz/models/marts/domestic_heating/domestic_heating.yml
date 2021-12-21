@@ -5,9 +5,6 @@ models:
   - name: dim_households
     columns:
       - name: uprn
-        tests:
-          - unique
-          - not_null
       - name: address_cluster_id
       - name: property_value_gbp
         tests:
