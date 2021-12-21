@@ -2,7 +2,7 @@
 
 with
 
-epc_pdd_address_matches as (
+epc_ppd_address_matches as (
 
     select * from {{ ref('stg_epc_ppd_address_matching__matches') }}
 
@@ -22,13 +22,22 @@ latest_building_certificates as (
     from (
 
         select
-            *,
+            certificates.*,
+            epc_ppd_address_matches.cluster_id as address_cluster_id,
             row_number() over (
-                partition by uprn order by inspection_date desc
+                partition by
+                    coalesce(
+                        epc_ppd_address_matches.cluster_id,
+                        cast(certificates.uprn as string),
+                        cast(certificates.building_reference_number as string)
+                    )
+                order by certificate.inspection_date desc
             ) as most_recent_building_certificate_ordinal
 
         from certificates
-        where uprn is not null
+
+        join epc_ppd_address_matches
+            on certificates.address_matching_id = epc_ppd_address_matches.address_id
 
     )
 
@@ -36,12 +45,12 @@ latest_building_certificates as (
 
 ),
 
-epc_features as (
+final as (
 
     select
         uprn,
         postcode,
-        address_matching_id,
+        address_cluster_id,
 
         -- Property features
         total_floor_area_m2,
@@ -106,19 +115,6 @@ epc_features as (
         end as occupant_type
 
     from latest_building_certificates
-
-),
-
-final as (
-
-    select
-        epc_features.* except(address_matching_id),
-        epc_pdd_address_matches.cluster_id as address_cluster_id
-
-    from epc_features
-
-    left join epc_pdd_address_matches
-        on epc_features.address_matching_id = epc_pdd_address_matches.address_id
 
 )
 
