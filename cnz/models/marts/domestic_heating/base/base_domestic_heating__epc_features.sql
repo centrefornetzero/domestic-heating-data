@@ -31,7 +31,7 @@ latest_building_certificates as (
                         cast(certificates.uprn as string),
                         cast(certificates.building_reference_number as string)
                     )
-                order by certificate.inspection_date desc
+                order by certificates.inspection_date desc
             ) as most_recent_building_certificate_ordinal
 
         from certificates
