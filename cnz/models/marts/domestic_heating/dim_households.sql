@@ -30,27 +30,14 @@ sales as (
 
 ),
 
-uk_hpi as (
+hpi as (
 
-    select
-        period,
-        area_code,
-        index
-    from {{ ref('stg_uk_house_price_index__full') }}
+    select * from {{ ref("base_domestic_heating__hpi") }}
 
 ),
 
-most_recent_hpi as (
 
-    select
-        period,
-        area_code,
-        index
-    from {{ ref('base_domestic_heating__most_recent_hpi') }}
-
-),
-
-joined as (
+final as (
 
     select
         epc_features.* except (postcode),
@@ -64,8 +51,7 @@ joined as (
         nsul.local_authority_district_code as local_authority_district_code_2021,
         nsul.local_authority_district_name as local_authority_district_name_2020,
 
-        sales.price as property_value_gbp,
-        sales.date_of_transfer as date_sold
+        sales.price * hpi.price_factor as current_property_value_gbp
 
     from epc_features
 
@@ -75,20 +61,8 @@ joined as (
 
     left join sales on epc_features.address_cluster_id = sales.address_cluster_id
 
-),
-
-final as (
-    select
-
-        joined.*,
-        joined.property_value_gbp * (most_recent_hpi.index / uk_hpi.index) as property_value_hpi_adjusted_gbp
-
-    from joined
-
-    left join uk_hpi on joined.local_authority_district_code_2021 = uk_hpi.area_code
-        and date_trunc(joined.date_sold, month) = date_trunc(uk_hpi.period, month)
-
-    left join most_recent_hpi on joined.local_authority_district_code_2021 = uk_hpi.area_code
+    left join hpi on nsul.local_authority_district_code = hpi.area_code
+        and date_trunc(sales.date_of_transfer, month) = date_trunc(hpi.period, month)
 
 )
 
