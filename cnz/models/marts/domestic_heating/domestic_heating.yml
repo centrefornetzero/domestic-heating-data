@@ -6,12 +6,6 @@ models:
     columns:
       - name: uprn
       - name: address_cluster_id
-      - name: property_value_gbp
-        tests:
-          - not_null
-          - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              strictly: true
       - name: total_floor_area_m2
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
@@ -82,3 +76,9 @@ models:
       - name: local_authority_district_name_2020
       - name: local_authority_district_code_2021
       - name: off_gas_grid
+      - name: current_property_value_gbp
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              row_condition: "current_property_value_gbp is not null"
+              strictly: true

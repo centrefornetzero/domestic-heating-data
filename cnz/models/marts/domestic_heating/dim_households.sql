@@ -30,6 +30,13 @@ sales as (
 
 ),
 
+hpi as (
+
+    select * from {{ ref("base_domestic_heating__hpi") }}
+
+),
+
+
 final as (
 
     select
@@ -44,7 +51,7 @@ final as (
         nsul.local_authority_district_code as local_authority_district_code_2021,
         nsul.local_authority_district_name as local_authority_district_name_2020,
 
-        sales.price as property_value_gbp
+        sales.price * hpi.price_factor as current_property_value_gbp
 
     from epc_features
 
@@ -53,6 +60,9 @@ final as (
     left join nsul on nsul.uprn = epc_features.uprn
 
     left join sales on epc_features.address_cluster_id = sales.address_cluster_id
+
+    left join hpi on nsul.local_authority_district_code = hpi.area_code
+        and date_trunc(sales.date_of_transfer, month) = date_trunc(hpi.period, month)
 
 )
 
