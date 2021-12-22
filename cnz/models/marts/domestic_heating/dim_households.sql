@@ -1,4 +1,4 @@
-{{ config(schema="domestic_heating") }}
+{{ config(schema="domestic_heating", materialized="table") }}
 
 with
 
