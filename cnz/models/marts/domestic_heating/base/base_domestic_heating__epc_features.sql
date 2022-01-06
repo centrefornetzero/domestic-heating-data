@@ -109,9 +109,9 @@ final as (
         end as roof_energy_efficiency,
 
         case tenure
-            when 'owner-occupied' then 'owner_occupied'
-            when 'rented (private)' then 'rented_private'
-            when 'rented (social)' then 'rented_social'
+            when 'owner-occupied' then 'owner_occupier'
+            when 'rented (private)' then 'renter_private'
+            when 'rented (social)' then 'renter_social'
         end as occupant_type
 
     from latest_building_certificates
