@@ -59,6 +59,9 @@ final as (
 
     from cleaned
 
+    where primary_addressable_object_name is not null
+        or secondary_addressable_object_name is not null
+
 )
 
 
