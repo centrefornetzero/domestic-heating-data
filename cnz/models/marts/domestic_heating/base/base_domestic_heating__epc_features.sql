@@ -84,20 +84,20 @@ final as (
             -- Ignore district heating
             when has_district_heating then null
             -- Heat pumps
-            when heat_pump_source = 'air' then 'air_source_heat_pump'
-            when heat_pump_source = 'ground' then 'ground_source_heat_pump'
+            when heat_pump_source = 'air' then 'heat_pump_air_source'
+            when heat_pump_source = 'ground' then 'heat_pump_ground_source'
             -- Prioritise main_fuel column first
-            when main_fuel = 'gas' then 'gas_boiler'
-            when main_fuel = 'electricity' then 'electric_boiler'
-            when main_fuel is not null then 'oil_boiler'
+            when main_fuel = 'gas' then 'boiler_gas'
+            when main_fuel = 'electricity' then 'boiler_electric'
+            when main_fuel is not null then 'boiler_oil'
             -- Then main_heat_fuel second
-            when main_heat_fuel = 'gas' then 'gas_boiler'
-            when main_heat_fuel = 'electricity' then 'electric_boiler'
-            when main_heat_fuel is not null then 'oil_boiler'
+            when main_heat_fuel = 'gas' then 'boiler_gas'
+            when main_heat_fuel = 'electricity' then 'boiler_electric'
+            when main_heat_fuel is not null then 'boiler_oil'
             -- and finally main_hotwater_fuel
-            when main_hotwater_fuel = 'gas' then 'gas_boiler'
-            when main_hotwater_fuel = 'electricity' then 'electric_boiler'
-            when main_hotwater_fuel is not null then 'oil_boiler'
+            when main_hotwater_fuel = 'gas' then 'boiler_gas'
+            when main_hotwater_fuel = 'electricity' then 'boiler_electric'
+            when main_hotwater_fuel is not null then 'boiler_oil'
         end as heating_system,
 
         -- Energy efficiencies
