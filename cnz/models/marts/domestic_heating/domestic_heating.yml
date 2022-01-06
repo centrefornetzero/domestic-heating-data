@@ -12,7 +12,7 @@ models:
               min_value: 0
               row_condition: "total_floor_area_m2 is not null"
               strictly: true
-      - name: construction_age_band
+      - name: construction_year_band
         tests:
           - accepted_values:
               values: [

@@ -55,9 +55,9 @@ final as (
         -- Property features
         total_floor_area_m2,
         case
-            when construction_age_band in ('2007-onwards', '2012-onwards', '2007-2011') then 'built_2007_onwards'
-            else concat('built_', replace(construction_age_band, '-', '_'))
-        end as construction_age_band,
+            when construction_year_band in ('2007-onwards', '2012-onwards', '2007-2011') then 'built_2007_onwards'
+            else concat('built_', replace(construction_year_band, '-', '_'))
+        end as construction_year_band,
         has_premises_above,
 
         case

@@ -237,7 +237,7 @@ models:
         tests:
           - accepted_values:
               values: ['mechanical, extract only', 'mechanical, supply and extract', 'natural']
-      - name: construction_age_band
+      - name: construction_year_band
         tests:
           - accepted_values:
               values: [

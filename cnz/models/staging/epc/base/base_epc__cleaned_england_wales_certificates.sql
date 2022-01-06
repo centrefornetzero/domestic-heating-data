@@ -156,7 +156,7 @@ final as (
             else mechanical_ventilation
         end as mechanical_ventilation,
         coalesce(
-            case construction_age_band
+            case construction_year_band
                 when 'NO DATA!' then null
                 when 'INVALID!' then null
                 when 'Not applicable' then null
@@ -177,24 +177,24 @@ final as (
             end,
             case
                 -- deal with outliers first
-                when safe_cast(construction_age_band as int) > (
+                when safe_cast(construction_year_band as int) > (
                     select extract(year from max(inspection_date)) from england_wales_certificates
                 ) then null
                 -- Convert numerical values to bands
-                when safe_cast(construction_age_band as int) < 1900 then 'pre-1900'
-                when safe_cast(construction_age_band as int) between 1900 and 1929 then '1900-1929'
-                when safe_cast(construction_age_band as int) between 1930 and 1949 then '1930-1949'
-                when safe_cast(construction_age_band as int) between 1950 and 1996 then '1950-1966'
-                when safe_cast(construction_age_band as int) between 1967 and 1975 then '1967-1975'
-                when safe_cast(construction_age_band as int) between 1976 and 1982 then '1976-1982'
-                when safe_cast(construction_age_band as int) between 1983 and 1990 then '1983-1990'
-                when safe_cast(construction_age_band as int) between 1991 and 1995 then '1991-1995'
-                when safe_cast(construction_age_band as int) between 1996 and 2002 then '1996-2002'
-                when safe_cast(construction_age_band as int) between 2003 and 2006 then '2003-2006'
-                when safe_cast(construction_age_band as int) between 2007 and 2011 then '2007-2011'
-                when safe_cast(construction_age_band as int) between 2012 and 2099 then '2012-onwards'
+                when safe_cast(construction_year_band as int) < 1900 then 'pre-1900'
+                when safe_cast(construction_year_band as int) between 1900 and 1929 then '1900-1929'
+                when safe_cast(construction_year_band as int) between 1930 and 1949 then '1930-1949'
+                when safe_cast(construction_year_band as int) between 1950 and 1996 then '1950-1966'
+                when safe_cast(construction_year_band as int) between 1967 and 1975 then '1967-1975'
+                when safe_cast(construction_year_band as int) between 1976 and 1982 then '1976-1982'
+                when safe_cast(construction_year_band as int) between 1983 and 1990 then '1983-1990'
+                when safe_cast(construction_year_band as int) between 1991 and 1995 then '1991-1995'
+                when safe_cast(construction_year_band as int) between 1996 and 2002 then '1996-2002'
+                when safe_cast(construction_year_band as int) between 2003 and 2006 then '2003-2006'
+                when safe_cast(construction_year_band as int) between 2007 and 2011 then '2007-2011'
+                when safe_cast(construction_year_band as int) between 2012 and 2099 then '2012-onwards'
             end
-        ) as construction_age_band,
+        ) as construction_year_band,
         lodgement_datetime as lodged_at,
         case
             when tenure in ('NO DATA!', 'unknown', '') then null
