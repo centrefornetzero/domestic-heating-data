@@ -194,7 +194,7 @@ final as (
                 when safe_cast(construction_age_band as int) between 2007 and 2011 then '2007-2011'
                 when safe_cast(construction_age_band as int) between 2012 and 2099 then '2012-onwards'
             end
-        ) as construction_age_band,
+        ) as construction_year_band,
         lodgement_datetime as lodged_at,
         case
             when tenure in ('NO DATA!', 'unknown', '') then null

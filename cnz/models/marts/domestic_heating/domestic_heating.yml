@@ -12,7 +12,7 @@ models:
               min_value: 0
               row_condition: "total_floor_area_m2 is not null"
               strictly: true
-      - name: construction_age_band
+      - name: construction_year_band
         tests:
           - accepted_values:
               values: [
@@ -52,7 +52,7 @@ models:
           Main sources of missingness from description cols is sap05 values and 'community scheme' heating where fuel source is unknown
         tests:
           - accepted_values:
-              values: ['air_source_heat_pump', 'ground_source_heat_pump', 'gas_boiler', 'electric_boiler', 'oil_boiler']
+              values: ['heat_pump_air_source', 'heat_pump_ground_source', 'boiler_gas', 'boiler_electric', 'boiler_oil']
       - name: walls_energy_efficiency
         tests:
           - accepted_values:

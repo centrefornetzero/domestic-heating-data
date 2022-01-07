@@ -42,6 +42,8 @@ final as (
     select
         epc_features.* except (postcode),
 
+        epc_features.wall_type = 'solid' as is_solid_wall,
+
         off_gas_postcodes.postcode is not null as is_off_gas_grid,
 
         epc_features.property_type not in (
