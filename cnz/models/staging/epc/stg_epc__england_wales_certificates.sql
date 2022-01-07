@@ -83,6 +83,8 @@ final as (
 
     from most_recently_lodged_certificate_of_inspection
 
+    where potential_energy_rating <= current_energy_rating -- remember 'A' < 'B'
+
 )
 
 select * from final

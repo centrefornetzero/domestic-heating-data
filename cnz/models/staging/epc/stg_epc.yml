@@ -312,6 +312,10 @@ models:
     tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           column_list: ["building_reference_number", "inspection_date"]
+      - dbt_expectations.expect_column_pair_values_A_to_be_greater_than_B:
+          column_A: current_energy_rating
+          column_B: potential_energy_rating
+          or_equal: True
   - name: stg_epc__england_wales_recommendations
     description: >
       Recommendations from energy performance certificates for domestic
