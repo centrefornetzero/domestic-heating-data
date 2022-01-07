@@ -75,7 +75,11 @@ final as (
         contains_substr(hot_water_description, 'electric immersion') as has_electric_immersion_heater,
 
         -- property features
-        roof_description in ('(another dwelling above)', '(another premises above)') as has_premises_above
+        -- matches 'other' and 'another'
+        contains_substr(roof_description, 'other dwelling above')
+        or contains_substr(roof_description, 'other premises above')
+        or contains_substr(roof_description, 'arall uwchben')  -- other above
+        as has_premises_above
 
     from most_recently_lodged_certificate_of_inspection
 
