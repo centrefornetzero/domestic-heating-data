@@ -44,7 +44,10 @@ final as (
 
         epc_features.wall_type = 'solid' as is_solid_wall,
 
-        off_gas_postcodes.postcode is not null as is_off_gas_grid,
+        case
+            when epc_features.heating_system = 'boiler_gas' then false
+            else off_gas_postcodes.postcode is not null
+        end as is_off_gas_grid,
 
         epc_features.property_type not in (
             'flat', 'park home'

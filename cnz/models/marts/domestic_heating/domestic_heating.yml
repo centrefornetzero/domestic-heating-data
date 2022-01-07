@@ -6,6 +6,8 @@ models:
     columns:
       - name: uprn
       - name: address_cluster_id
+        tests:
+          - unique
       - name: total_floor_area_m2
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
@@ -82,3 +84,54 @@ models:
               min_value: 0
               row_condition: "current_property_value_gbp is not null"
               strictly: true
+  - name: dim_household_agents
+    columns:
+        - name: id
+          tests:
+            - not_null
+        - name: location
+          tests:
+            - not_null
+        - name: property_value_gbp
+          tests:
+            - not_null
+        - name: total_floor_area_m2
+          tests:
+            - not_null
+        - name: is_off_gas_grid
+          tests:
+            - not_null
+        - name: construction_year_band
+          tests:
+            - not_null
+        - name: property_type
+          tests:
+            - not_null
+        - name: built_form
+          tests:
+            - not_null
+        - name: heating_system
+          tests:
+            - not_null
+        - name: epc_rating
+          tests:
+            - not_null
+        - name: potential_epc_rating
+          tests:
+            - not_null
+        - name: occupant_type
+          tests:
+            - not_null
+        - name: is_solid_wall
+          tests:
+            - not_null
+        - name: walls_energy_efficiency
+          tests:
+            - not_null
+        - name: roof_energy_efficiency
+        - name: windows_energy_efficiency
+          tests:
+            - not_null
+        - name: is_heat_pump_suitable_archetype
+          tests:
+            - not_null
