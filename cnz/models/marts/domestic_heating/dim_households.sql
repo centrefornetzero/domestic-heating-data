@@ -56,7 +56,13 @@ final as (
         nsul.local_authority_district_code as local_authority_district_code_2021,
         nsul.local_authority_district_name as local_authority_district_name_2020,
 
-        sales.price * hpi.price_factor as current_property_value_gbp
+        case
+            when epc_features.property_type = 'flat' then sales.price * hpi.flat_price_factor
+            when epc_features.built_form = 'detached' then sales.price * hpi.detached_price_factor
+            when epc_features.built_form = 'semi_detached' then sales.price * hpi.semi_detached_price_factor
+            when contains_substr(epc_features.built_form, 'terrace') then sales.price * hpi.terraced_price_factor
+            else sales.price * hpi.price_factor
+        end as current_property_value_gbp
 
     from epc_features
 
