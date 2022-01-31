@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: stg_nsul__addresses
+    columns:
+      - name: uprn
+        tests:
+          - not_null
+          - unique
+      - name: postcode
+        tests:
+          - not_null
+      - name: local_authority_district_code
+        tests:
+          - not_null
+      - name: local_authority_district_name
+        tests:
+          - not_null
