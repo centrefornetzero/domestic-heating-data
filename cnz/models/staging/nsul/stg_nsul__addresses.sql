@@ -24,9 +24,7 @@ final as (
 
     from nsul_addresses
     left join local_authority_districts
-        -- 2021-11 edition only incudes a lad20 lookup, not lad21
-        -- left join ensures districts newly introduced in 2021 are captured
-        on nsul_addresses.lad21cd = local_authority_districts.lad20cd
+        on nsul_addresses.lad21cd = local_authority_districts.lad21cd
 
 )
 

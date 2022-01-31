@@ -7,7 +7,7 @@ sources:
     schema: src_nsul
     tables:
       - name: addresses
-        identifier: "2021-11_addresses"
+        identifier: "2022-01_addresses"
         columns:
         - name: uprn
           description: Unique property reference number
@@ -22,11 +22,11 @@ sources:
           description: 2011 Census Output Area code
         - name: cty21cd
           description: County code
-        - name: ced17cd
+        - name: ced21cd
           description: County electoral division code
         - name: lad21cd
           description: Local authority district code
-        - name: wd19cd
+        - name: wd21cd
         - name: hlth19cd
         - name: ctry11cd
         - name: rgn11cd
@@ -38,7 +38,7 @@ sources:
         - name: lsoa11cd
         - name: msoa11cd
         - name: wz11cd
-        - name: ccg17cd
+        - name: ccg19cd
         - name: bua11cd
         - name: buasd11cd
         - name: ruc11ind
@@ -48,9 +48,9 @@ sources:
         - name: pfa15cd
         - name: imd19ind
       - name: local_authority_districts
-        identifier: "2021-11_local_authority_districts"
+        identifier: "2022-01_local_authority_districts"
         columns:
-        - name: lad20cd
+        - name: lad21cd
           tests:
             - not_null
             - unique
