@@ -1,14 +1,53 @@
-# dbt-data-warehouse
+# `domestic-heating-data`
 
-This repo contains the [dbt](https://docs.getdbt.com/) project for the CNZ data warehouse.
+Data pipelines for [Centre for Net Zero's agent-based model of domestic heating](https://github.com/centrefornetzero/domestic-heating-abm).
 
-Before continuing, read the [introduction in the dbt documentation](https://docs.getdbt.com/docs/introduction).
+The pipelines transform and combine publicly available datasets to produce data relevant to the decisions households in England and Wales make about their heating system.
 
-## Set Up
+## Where can I download the data?
 
-`cp .env.template .env` and fill in the values in `.env`. Then run `./scripts/bootstrap.sh`.
+You can't download it.
+The datasets we use are publicly available but released under their own licences and copyright restrictions.
+Here we publish code to transform the datasets.
+You need to obtain the datasets yourself and use this code to transform it. The `README` for each dataset in [`cnz/models/staging`](cnz/models/staging) contains a link to download the original data.
 
-## dbt Project Structure
+## `dim_household_agents`
+
+[`dim_household_agents`](cnz/models/marts/domestic_heating/dim_household_agents.sql) is the ultimate output of the models.
+Each row describes a household we can model in our ABM.
+
+`dim_household_agents` queries [`dim_households`](cnz/models/marts/domestic_heating/dim_households.sql), which contains all the households in `dim_household_agents` _and_ those with insufficient data for us to include in the ABM.
+
+
+## Supported databases
+
+We use [BigQuery](https://cloud.google.com/bigquery).
+We haven't tested it with other databases, but expect that it would work with other databases like PostgreSQL with little or no modifications to the queries.
+As of writing there are 168 data tests to help you make any changes with confidence.
+
+## dbt set up
+
+If you are new to dbt, first read the [introduction in the dbt documentation](https://docs.getdbt.com/docs/introduction).
+
+You need Python 3.9 and [`pipenv`](https://github.com/pypa/pipenv).
+If you don't have them, see [our instructions for macOS](https://gist.github.com/tomwphillips/715d4fd452ef5d52b4708c0fc5d4f30f).
+
+To set up the project, run:
+
+1. Clone this repo.
+2. `cp .env.template .env`.
+3. Fill in the values in `.env`.
+4. `./scripts/bootstrap.sh`.
+
+Once you've loaded the data into BigQuery you can:
+
+1. Test all your sources: `dbt test --models "source:*"`
+2. Run all the models: `dbt run`
+3. Test all the models: `dbt test --exclude "source:*"`
+
+If that all succeeded, you should now be able to query `dim_household_agents`.
+
+## CNZ's dbt style guide
 
 Our `models` directory is organised into two folders: `staging` and `marts`.
 
@@ -73,7 +112,7 @@ Both should be documented and tested using `<project>.yml`
 
 Complex models should be broken up into intermediate models in `<project>/intermediate/`.
 
-## Development and Production Environments
+## Development and production environments
 
 We have two data warehouse environments: development and production.
 These are separate Google Cloud projects.
@@ -82,7 +121,7 @@ Data sources are loaded into the production environment; they can be queried fro
 
 **The development environment is periodically erased!**
 
-## Development Workflow
+## Development workflow
 
 1. Write a new model or tests.
 2. Run `dbt run` to compile the SQL and execute it agaist the development environment.
@@ -99,7 +138,7 @@ Once the tests have passed and the PR has been reviewed and and merged, a Github
 
 A GitHub action deletes `ci_*` schemas nightly.
 
-## SQL Style Guide
+## CNZ's SQL style guide
 
 We use the [dbt Labs style guide](https://github.com/dbt-labs/corp/blob/master/dbt_style_guide.md).
 _Optimize for readability, not lines of code._
