@@ -4,6 +4,8 @@ Data pipelines for [Centre for Net Zero's agent-based model of domestic heating]
 
 The pipelines transform and combine publicly available datasets to produce data relevant to the decisions households in England and Wales make about their heating system.
 
+Read the [post on our tech blog](https://www.centrefornetzero.org/how-we-use-bigquery-dbt-and-github-actions-to-manage-data-at-cnz/) for a longer description of how this works.
+
 ## Where can I download the data?
 
 You can't download it.
