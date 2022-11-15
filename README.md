@@ -1,5 +1,7 @@
 # `domestic-heating-data`
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7322967.svg)](https://doi.org/10.5281/zenodo.7322967)
+
 Data pipelines for [Centre for Net Zero's agent-based model of domestic heating](https://github.com/centrefornetzero/domestic-heating-abm).
 
 The pipelines transform and combine publicly available datasets to produce data relevant to the decisions households in England and Wales make about their heating system.
@@ -8,10 +10,10 @@ Read the [post on our tech blog](https://www.centrefornetzero.org/how-we-use-big
 
 ## Where can I download the data?
 
-You can't download it.
 The datasets we use are publicly available but released under their own licences and copyright restrictions.
 Here we publish code to transform the datasets.
 You need to obtain the datasets yourself and use this code to transform it. The `README` for each dataset in [`cnz/models/staging`](cnz/models/staging) contains a link to download the original data.
+If you wish to cite this Github repository that contains the code to transform the datasets, or download the joined dataset (after carefully reading the terms of licenses and restrictions) you can do so by referring to our [Zenodo page for this dataset](https://zenodo.org/record/7322967#.Y3OGWezP16o).
 
 ## `dim_household_agents`
 
